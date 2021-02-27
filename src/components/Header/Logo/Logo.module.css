@@ -1,0 +1,14 @@
+.Logo {
+    display: flex;
+    align-items: center;
+    height: 53px;
+}
+
+.Logo h1 {
+    font-weight: normal;
+    font-size: 2rem;
+}
+
+.Logo img {
+    height: 100%;
+}
