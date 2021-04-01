@@ -9,6 +9,25 @@ const fetchStopListSync = (stopList) => {
     };
 };
 
+export const toggleStopListVisibility = () => {
+    return {
+        type: actionTypes.TOGGLE_STOP_LIST_VISIBILITY
+    }
+}
+
+export const filterStopListByNameTemplate = (nameTemplate) => {
+    return {
+        type: actionTypes.FILTER_STOP_LIST_BY_NAME_TEMPLATE,
+        nameTemplate
+    }
+}
+
+export const clearStopListFilter = () => {
+    return {
+        type: actionTypes.CLEAR_STOP_LIST_FILTER
+    }
+}
+
 export const fetchStopList = () => {
     return (dispatch) => {
         axios.get('http://localhost:8080/stops')
