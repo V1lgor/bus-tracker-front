@@ -1,6 +1,7 @@
 import React from 'react';
 import Map from "../../components/Map/Map";
 import RouteListContainer from "../RouteListContainer/RouteListContainer";
+import Spinner from "../../components/UI/Spinner/Spinner";
 
 class Main extends React.Component {
 

@@ -1,0 +1,41 @@
+.con {
+    text-align: center;
+}
+
+.back {
+    width:90px;
+    height:90px;
+    border:1px solid #CCC;
+    top:0; bottom:0; left:0;right:0;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius:50%;
+}
+
+.circle{
+    width:10px;
+    height:10px;
+    background:#3477db;
+    border-radius:50%;
+    top:0; bottom:0; left:0;right:0;
+    overflow:hidden;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 40px;
+    -webkit-animation: circle 2s linear infinite;
+    animation: circle 2s linear infinite;
+}
+
+@keyframes circle{
+    0%{
+        transform:rotate(0deg)
+        translate(-45px)
+        rotate(0deg);
+    }
+
+    100%{
+        transform:rotate(360deg)
+        translate(-45px)
+        rotate(-360deg);
+    }
+}

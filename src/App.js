@@ -9,11 +9,13 @@ import Header from "./components/Header/Header";
 import Main from "./containers/Main/Main";
 import routeReducer from "./store/reducers/routeReducer";
 import ScheduleContainer from "./containers/ScheduleContainer";
-import Modal from "./components/UI/Modal/Modal";
+import Spinner from "./components/UI/Spinner/Spinner";
+import stopReducer from "./store/reducers/stopReducer";
 
 const rootReducer = combineReducers({
     scheduleReducer: scheduleReducer,
-    routeReducer: routeReducer
+    routeReducer: routeReducer,
+    stopReducer: stopReducer
 });
 
 const store = createStore(rootReducer, applyMiddleware(thunk));
@@ -24,11 +26,6 @@ const App = () => {
             <div className='App'>
                 <Header/>
                 <Main/>
-                {/*
-                    <Modal>
-                        <ScheduleContainer routeId={1}/>
-                    </Modal>
-                    */}
             </div>
         </Provider>
     );

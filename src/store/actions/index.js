@@ -5,3 +5,7 @@ export {
 export  {
     fetchRouteList
 } from './routeActions';
+
+export  {
+    fetchStopList
+} from './stopActions';
