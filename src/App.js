@@ -24,9 +24,11 @@ const App = () => {
             <div className='App'>
                 <Header/>
                 <Main/>
-                <Modal>
-                    <ScheduleContainer routeId={1}/>
-                </Modal>
+                {/*
+                    <Modal>
+                        <ScheduleContainer routeId={1}/>
+                    </Modal>
+                    */}
             </div>
         </Provider>
     );
