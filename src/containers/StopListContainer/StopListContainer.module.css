@@ -1,8 +1,8 @@
 .StopListContainer {
-    width: 25%;
-    position: fixed;
-    top: 53px;
-    height: 100vh;
-    box-shadow: 2px 2px 5px 2px #ccc;
-    background-color: #fff;
+    padding-top: 16px;
+}
+
+.SearchField {
+    width: 50%;
+    margin: 0 auto;
 }

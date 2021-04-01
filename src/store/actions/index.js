@@ -7,5 +7,8 @@ export  {
 } from './routeActions';
 
 export  {
-    fetchStopList
+    fetchStopList,
+    toggleStopListVisibility,
+    filterStopListByNameTemplate,
+    clearStopListFilter
 } from './stopActions';
