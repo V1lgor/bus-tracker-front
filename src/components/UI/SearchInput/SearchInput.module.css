@@ -1,0 +1,27 @@
+.SearchInput {
+    height: 32px;
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.SearchInput input {
+    padding-left: 8px;
+    height: 32px;
+    width: 100%;
+    border: 1px solid #ccc;
+    outline: none;
+    border-radius: 10px;
+    padding-right: 32px;
+}
+
+
+.SearchInput:after {
+    height: 16px;
+    width: 16px;
+    background-image: url('../../../assets/images/loupe.png');
+    background-size: 16px 16px;
+    content: "";
+    position: absolute;
+    right: 8px;
+}
