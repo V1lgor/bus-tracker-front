@@ -1,28 +1,41 @@
 import React from 'react';
 import Map from "../../components/Map/Map";
 import RouteListContainer from "../RouteListContainer/RouteListContainer";
+import {connect} from "react-redux";
+import Sidebar from "../../components/UI/Sidebar/Sidebar";
+import StopListContainer from "../StopListContainer/StopListContainer";
 
 class Main extends React.Component {
 
     state = {
-        routeListVisible: true
+        sidebarVisible: false
     }
 
     render() {
+        let sidebarContent = null;
 
-        let routeList = null;
-
-        if (this.state.routeListVisible) {
-            routeList = <RouteListContainer/>
+        if (this.props.routeListVisible) {
+            sidebarContent = <Sidebar><RouteListContainer/></Sidebar>
+        }
+        if (this.props.stopListVisible) {
+            sidebarContent = <Sidebar><StopListContainer/></Sidebar>
         }
 
         return (
             <main>
-                {routeList}
+                {sidebarContent}
                 <Map/>
             </main>
         );
     };
 }
 
-export default Main;
+const mapStateToProps = (state) => {
+    return {
+        routeListVisible: state.routeReducer.routeListVisible,
+        stopListVisible: state.stopReducer.stopListVisible
+    };
+};
+
+
+export default connect(mapStateToProps, null)(Main);
