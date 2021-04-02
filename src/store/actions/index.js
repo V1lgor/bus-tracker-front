@@ -3,9 +3,15 @@ export {
 } from './scheduleActions';
 
 export  {
-    fetchRouteList
+    fetchRouteList,
+    toggleRouteListVisibility,
+    filterRouteListByNumberTemplate,
+    clearRouteListFilter
 } from './routeActions';
 
 export  {
-    fetchStopList
+    fetchStopList,
+    toggleStopListVisibility,
+    filterStopListByNameTemplate,
+    clearStopListFilter
 } from './stopActions';

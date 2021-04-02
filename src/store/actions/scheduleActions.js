@@ -9,6 +9,7 @@ const setSelectedScheduleSync = (schedule) => {
   };
 };
 export const setSelectedSchedule = (routeId) => {
+  console.log(routeId);
   return (dispatch) => {
     axios
       .get(`http://localhost:8080/schedule/${routeId}`)
