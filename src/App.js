@@ -5,7 +5,7 @@ import thunk from 'redux-thunk';
 
 import {Provider} from 'react-redux';
 
-import Header from "./components/Header/Header";
+import Header from "./containers/Header/Header";
 import Main from "./containers/Main/Main";
 import routeReducer from "./store/reducers/routeReducer";
 import ScheduleContainer from "./containers/ScheduleContainer";

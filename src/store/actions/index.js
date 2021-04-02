@@ -3,7 +3,10 @@ export {
 } from './scheduleActions';
 
 export  {
-    fetchRouteList
+    fetchRouteList,
+    toggleRouteListVisibility,
+    filterRouteListByNumberTemplate,
+    clearRouteListFilter
 } from './routeActions';
 
 export  {
