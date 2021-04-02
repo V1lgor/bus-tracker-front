@@ -10,8 +10,10 @@ const RouteList = (props) => {
         <ul className={styles.RouteList}>
             {props.routeList.map(route =>
                 <RouteListItem number={route.number}
+                               key={route.id}
                                startStop={route.startStop.name}
-                               lastStop={route.lastStop.name}/>)}
+                               lastStop={route.lastStop.name}
+                               showSchedule={() => {props.showSchedule(route.id)}}/>)}
         </ul>
     );
 };

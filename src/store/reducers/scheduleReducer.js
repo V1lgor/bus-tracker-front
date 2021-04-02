@@ -8,7 +8,6 @@ const initialState = {
 const scheduleReducer = (state = initialState, action) => {
   switch (action.type) {
     case actionTypes.SET_SELECTED_SCHEDULE: {
-      console.log('DISPATCHED');
       return produce(state, (draftState) => {
         draftState.selectedSchedule = action.schedule;
       });

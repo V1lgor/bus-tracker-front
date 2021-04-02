@@ -4,11 +4,16 @@ import RouteListContainer from "../RouteListContainer/RouteListContainer";
 import {connect} from "react-redux";
 import Sidebar from "../../components/UI/Sidebar/Sidebar";
 import StopListContainer from "../StopListContainer/StopListContainer";
+import Modal from "../../components/UI/Modal/Modal";
+import ScheduleContainer from "../ScheduleContainer";
+
+import styles from './Main.module.css';
 
 class Main extends React.Component {
 
     state = {
-        sidebarVisible: false
+        sidebarVisible: false,
+        scheduleModalVisible: false
     }
 
     render() {
@@ -17,13 +22,27 @@ class Main extends React.Component {
         if (this.props.routeListVisible) {
             sidebarContent = <Sidebar><RouteListContainer/></Sidebar>
         }
-        if (this.props.stopListVisible) {
+        else if (this.props.stopListVisible) {
             sidebarContent = <Sidebar><StopListContainer/></Sidebar>
         }
 
+        let scheduleModal = null;
+
+        if (this.props.selectedSchedule) {
+            this.setState({scheduleModalVisible: true});
+            scheduleModal = <Modal><ScheduleContainer selectedSchedule={this.props.selectedSchedule}/></Modal>
+        }
+
+        let cssClassList = [styles.Main];
+
+        if (this.props.routeListVisible || this.props.stopListVisible) {
+            cssClassList.push(styles.WithSidebar)
+        }
+
         return (
-            <main>
+            <main className={cssClassList.join(' ')}>
                 {sidebarContent}
+                {scheduleModal}
                 <Map/>
             </main>
         );
@@ -33,7 +52,8 @@ class Main extends React.Component {
 const mapStateToProps = (state) => {
     return {
         routeListVisible: state.routeReducer.routeListVisible,
-        stopListVisible: state.stopReducer.stopListVisible
+        stopListVisible: state.stopReducer.stopListVisible,
+        selectedSchedule: state.scheduleReducer.selectedSchedule
     };
 };
 

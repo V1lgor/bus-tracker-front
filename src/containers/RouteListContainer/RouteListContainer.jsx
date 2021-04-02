@@ -31,10 +31,13 @@ class RouteListContainer extends React.Component {
         return (
             <div className={styles.RouteListContainer}>
                 <div className={styles.SearchField}>
-                    <SearchInput onSearch={this.props.filterRouteListByNumberTemplate} placeholder={"Введите номер маршрута"}/>
+                    <SearchInput onSearch={this.props.filterRouteListByNumberTemplate}
+                                 placeholder={"Введите номер маршрута"}/>
                 </div>
                 {spinner}
-                <RouteList routeList={this.props.filteredRouteList ? this.props.filteredRouteList : this.props.routeList}/>
+                <RouteList
+                    routeList={this.props.filteredRouteList ? this.props.filteredRouteList : this.props.routeList}
+                    showSchedule={this.props.setSelectedSchedule}/>
             </div>
         );
     }
@@ -51,7 +54,8 @@ const mapDispatchToProps = (dispatch) => {
     return {
         fetchRouteList: () => dispatch(actions.fetchRouteList()),
         filterRouteListByNumberTemplate: (numberTemplate) => dispatch(actions.filterRouteListByNumberTemplate(numberTemplate)),
-        clearRouteListFilter: () => dispatch(actions.clearRouteListFilter())
+        clearRouteListFilter: () => dispatch(actions.clearRouteListFilter()),
+        setSelectedSchedule: (routeId) => dispatch(actions.setSelectedSchedule(routeId))
     };
 };
 

@@ -1,0 +1,25 @@
+.CityStopList {
+    position: relative;
+    transition: 0.3s;
+    border-bottom: 1px solid #ccc;
+
+    padding: 16px;
+}
+
+.CityName {
+    font-size: 32px;
+}
+
+.CityStopList:hover {
+    cursor: pointer;
+    background-color: #efefef;
+}
+
+.ArrowWrapper {
+    position: absolute;
+    width: 32px;
+    height: 32px;
+    top: 50%;
+    transform: translateY(-50%);
+    right: 8px;
+}

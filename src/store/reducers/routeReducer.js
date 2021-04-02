@@ -37,4 +37,35 @@ const routeReducer = (state = initialState, action) => {
     }
 };
 
+
+const formConfig = [
+    {
+        type: "text",
+        name: "login",
+        label: "Логин: ",
+        placeholder: "Введите логин"
+    },
+    {
+        type: "password",
+        name: "password",
+        label: "Пароль: ",
+        placeholder: "Введите пароль"
+    },
+    {
+        type: "dropdown",
+        name: "country",
+        label: "Страна:",
+        options: [
+            {
+                name: "Russia",
+                value: 1
+            },
+            {
+                name: "USA",
+                value: 2
+            },
+        ]
+    }
+]
+
 export default routeReducer;
