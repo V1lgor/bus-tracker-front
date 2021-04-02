@@ -8,6 +8,7 @@ import styles from './StopListContainer.module.css';
 import Spinner from "../../components/UI/Spinner/Spinner";
 import SearchInput from "../../components/UI/SearchInput/SearchInput";
 import Stop from "../../components/Stop/Stop";
+
 import CityStopList from "../../components/CityStopList/CityStopList";
 
 const StopListContainer = (props) => {
@@ -64,5 +65,4 @@ const mapDispatchToProps = (dispatch) => {
         clearStopListFilter: () => dispatch(actions.clearStopListFilter())
     };
 };
-
 export default connect(mapStateToProps, mapDispatchToProps)(StopListContainer);
