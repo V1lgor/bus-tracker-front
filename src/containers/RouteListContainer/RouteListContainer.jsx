@@ -12,7 +12,7 @@ class RouteListContainer extends React.Component {
 
 
     componentDidMount() {
-        if (this.props.routeList.length === 0) this.props.fetchRouteList();
+        if (!this.props.routeList) this.props.fetchRouteList();
     }
 
     componentWillUnmount() {
@@ -23,9 +23,13 @@ class RouteListContainer extends React.Component {
 
         let spinner = null;
 
-        if (this.props.routeList.length === 0) {
+        if (!this.props.routeList) {
             spinner = <div><Spinner/></div>
         }
+
+        let routeList = null;
+        if (this.props.routeList)
+            routeList = this.props.filteredRouteList ? this.props.filteredRouteList : this.props.routeList;
 
 
         return (
@@ -35,9 +39,11 @@ class RouteListContainer extends React.Component {
                                  placeholder={"Введите номер маршрута"}/>
                 </div>
                 {spinner}
-                <RouteList
-                    routeList={this.props.filteredRouteList ? this.props.filteredRouteList : this.props.routeList}
-                    showSchedule={this.props.setSelectedSchedule}/>
+                {routeList
+                    ? <RouteList
+                        routeList={routeList}
+                        showSchedule={this.props.setSelectedSchedule}/>
+                    : null}
             </div>
         );
     }

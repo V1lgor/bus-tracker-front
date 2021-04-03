@@ -1,17 +1,28 @@
 import * as actionTypes from './../actions/actionTypes';
 import produce from "immer";
+import {normalize} from "normalizr";
+import Route from "../entities/Route";
 
 const initialState = {
-    routeList: [],
+    routeList: null,
     routeListVisible: false,
     filteredRouteList: null
 }
 
+const normalizeRouteList = (routeList) => {
+    const normalizedRouteList = normalize(routeList, [Route]);
+
+    return {
+        byId: normalizedRouteList.entities.route,
+        idList: normalizedRouteList.result
+    }
+}
+
 const routeReducer = (state = initialState, action) => {
     switch (action.type) {
-        case actionTypes.FETCH_ROUTE_LIST: {
+        case actionTypes.SET_ROUTE_LIST: {
             return produce(state, (draftState) => {
-                draftState.routeList = action.routeList;
+                draftState.routeList = normalizeRouteList(action.routeList);
             });
         }
         case actionTypes.TOGGLE_ROUTE_LIST_VISIBILITY: {
@@ -20,10 +31,20 @@ const routeReducer = (state = initialState, action) => {
             })
         }
         case actionTypes.FILTER_ROUTE_LIST_BY_NUMBER_TEMPLATE:
+            const filteredRouteList = [];
+
+            state.routeList.idList.forEach(routeId => {
+                const currentRoute = state.routeList.byId[routeId];
+
+                if (currentRoute.number.toLowerCase().startsWith(action.numberTemplate.toLowerCase())) {
+                    filteredRouteList.push(currentRoute);
+                }
+            });
+
+            console.log(filteredRouteList);
+
             return produce(state, (draftState) => {
-                draftState.filteredRouteList = state.routeList.filter(route => {
-                    return route.number.startsWith(action.numberTemplate)
-                });
+                draftState.filteredRouteList = normalizeRouteList(filteredRouteList);
             })
         case actionTypes.CLEAR_ROUTE_LIST_FILTER: {
             return produce(state, (draftState) => {
@@ -35,36 +56,5 @@ const routeReducer = (state = initialState, action) => {
             return state;
     }
 };
-
-
-const formConfig = [
-    {
-        type: "text",
-        name: "login",
-        label: "Логин: ",
-        placeholder: "Введите логин"
-    },
-    {
-        type: "password",
-        name: "password",
-        label: "Пароль: ",
-        placeholder: "Введите пароль"
-    },
-    {
-        type: "dropdown",
-        name: "country",
-        label: "Страна:",
-        options: [
-            {
-                name: "Russia",
-                value: 1
-            },
-            {
-                name: "USA",
-                value: 2
-            },
-        ]
-    }
-]
 
 export default routeReducer;

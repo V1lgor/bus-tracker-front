@@ -2,9 +2,9 @@ import axios from 'axios';
 
 import * as actionTypes from './actionTypes';
 
-const fetchRouteListSync = (routeList) => {
+const setRouteList = (routeList) => {
     return {
-        type: actionTypes.FETCH_ROUTE_LIST,
+        type: actionTypes.SET_ROUTE_LIST,
         routeList
     };
 };
@@ -30,10 +30,8 @@ export const clearRouteListFilter = () => {
 
 export const fetchRouteList = () => {
     return (dispatch) => {
-        setTimeout(() => {
-            axios.get('http://localhost:8080/routes')
-                .then(response => response.data)
-                .then(routeList => dispatch(fetchRouteListSync(routeList)))
-        }, 1000)
+        axios.get('http://localhost:8080/routes')
+            .then(response => response.data)
+            .then(routeList => dispatch(setRouteList(routeList)))
     };
 };
