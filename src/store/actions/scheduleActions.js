@@ -3,19 +3,26 @@ import axios from 'axios';
 import * as actionTypes from './actionTypes';
 
 const setSelectedScheduleSync = (schedule) => {
-  return {
-    type: actionTypes.SET_SELECTED_SCHEDULE,
-    schedule,
-  };
+    return {
+        type: actionTypes.SET_SELECTED_SCHEDULE,
+        schedule,
+    };
 };
+
+export const clearSchedule = () => {
+    return {
+        type: actionTypes.CLEAR_SCHEDULE
+    }
+}
+
 export const setSelectedSchedule = (routeId) => {
-  console.log(routeId);
-  return (dispatch) => {
-    axios
-      .get(`http://localhost:8080/schedule/${routeId}`)
-      .then((response) => {
-        return response.data;
-      })
-      .then((schedule) => dispatch(setSelectedScheduleSync(schedule)));
-  };
+    console.log(routeId);
+    return (dispatch) => {
+        axios
+            .get(`http://localhost:8080/schedule/${routeId}`)
+            .then((response) => {
+                return response.data;
+            })
+            .then((schedule) => dispatch(setSelectedScheduleSync(schedule)));
+    };
 };

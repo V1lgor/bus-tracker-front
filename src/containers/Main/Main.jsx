@@ -7,6 +7,8 @@ import StopListContainer from "../StopListContainer/StopListContainer";
 import Modal from "../../components/UI/Modal/Modal";
 import ScheduleContainer from "../ScheduleContainer";
 
+import * as actions from '../../store/actions/';
+
 import styles from './Main.module.css';
 
 class Main extends React.Component {
@@ -16,21 +18,31 @@ class Main extends React.Component {
         scheduleModalVisible: false
     }
 
+    closeScheduleModal = () => {
+        this.props.clearSchedule();
+        this.setState({scheduleModalVisible: false});
+    }
+
     render() {
+
         let sidebarContent = null;
 
         if (this.props.routeListVisible) {
             sidebarContent = <Sidebar><RouteListContainer/></Sidebar>
-        }
-        else if (this.props.stopListVisible) {
+        } else if (this.props.stopListVisible) {
             sidebarContent = <Sidebar><StopListContainer/></Sidebar>
         }
 
         let scheduleModal = null;
 
-        if (this.props.selectedSchedule) {
+        if (this.props.selectedSchedule && !this.state.scheduleModalVisible) {
             this.setState({scheduleModalVisible: true});
-            scheduleModal = <Modal><ScheduleContainer selectedSchedule={this.props.selectedSchedule}/></Modal>
+        }
+
+        if (this.state.scheduleModalVisible) {
+            scheduleModal = <Modal closeModal={this.closeScheduleModal}>
+                <ScheduleContainer selectedSchedule={this.props.selectedSchedule}/>
+            </Modal>
         }
 
         let cssClassList = [styles.Main];
@@ -57,5 +69,10 @@ const mapStateToProps = (state) => {
     };
 };
 
+const mapDispatchToProps = (dispatch) => {
+    return {
+        clearSchedule: () => dispatch(actions.clearSchedule())
+    }
+}
 
-export default connect(mapStateToProps, null)(Main);
+export default connect(mapStateToProps, mapDispatchToProps)(Main);

@@ -1,5 +1,6 @@
 export {
     setSelectedSchedule,
+    clearSchedule
 } from './scheduleActions';
 
 export  {

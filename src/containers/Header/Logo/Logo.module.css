@@ -1,7 +1,8 @@
 .Logo {
     display: flex;
     align-items: center;
-    height: 53px;
+    height: 32px;
+    padding-left: 16px;
 }
 
 .Logo h1 {
