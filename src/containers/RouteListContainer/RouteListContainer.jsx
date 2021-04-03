@@ -55,7 +55,7 @@ const mapDispatchToProps = (dispatch) => {
         fetchRouteList: () => dispatch(actions.fetchRouteList()),
         filterRouteListByNumberTemplate: (numberTemplate) => dispatch(actions.filterRouteListByNumberTemplate(numberTemplate)),
         clearRouteListFilter: () => dispatch(actions.clearRouteListFilter()),
-        setSelectedSchedule: (routeId) => dispatch(actions.setSelectedSchedule(routeId))
+        setSelectedSchedule: (routeId) => dispatch(actions.setSelectedScheduleRouteId(routeId))
     };
 };
 

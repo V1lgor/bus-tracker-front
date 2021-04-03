@@ -1,5 +1,6 @@
 export {
-    setSelectedSchedule,
+    setSelectedScheduleRouteId,
+    fetchRouteScheduleByRouteId,
     clearSchedule
 } from './scheduleActions';
 

@@ -35,14 +35,15 @@ class Main extends React.Component {
 
         let scheduleModal = null;
 
-        if (this.props.selectedSchedule && !this.state.scheduleModalVisible) {
+        if (this.props.selectedScheduleRouteId && !this.state.scheduleModalVisible) {
             this.setState({scheduleModalVisible: true});
         }
 
         if (this.state.scheduleModalVisible) {
-            scheduleModal = <Modal closeModal={this.closeScheduleModal}>
-                <ScheduleContainer selectedSchedule={this.props.selectedSchedule}/>
-            </Modal>
+            scheduleModal =
+                <Modal closeModal={this.closeScheduleModal}>
+                    <ScheduleContainer routeId={this.props.selectedScheduleRouteId}/>
+                </Modal>
         }
 
         let cssClassList = [styles.Main];
@@ -65,7 +66,7 @@ const mapStateToProps = (state) => {
     return {
         routeListVisible: state.routeReducer.routeListVisible,
         stopListVisible: state.stopReducer.stopListVisible,
-        selectedSchedule: state.scheduleReducer.selectedSchedule
+        selectedScheduleRouteId: state.scheduleReducer.selectedScheduleRouteId
     };
 };
 

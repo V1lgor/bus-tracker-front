@@ -9,13 +9,27 @@ const setSelectedScheduleSync = (schedule) => {
     };
 };
 
+export const setSelectedScheduleRouteId = (routeId) => {
+    return {
+        type: actionTypes.SET_SELECTED_SCHEDULE_ROUTE_ID,
+        routeId
+    };
+};
+
 export const clearSchedule = () => {
     return {
         type: actionTypes.CLEAR_SCHEDULE
-    }
-}
+    };
+};
 
-export const setSelectedSchedule = (routeId) => {
+export const setScheduleError = (error) => {
+    return {
+        type: actionTypes.SET_SCHEDULE_ERROR,
+        error
+    };
+};
+
+export const fetchRouteScheduleByRouteId = (routeId) => {
     console.log(routeId);
     return (dispatch) => {
         axios
