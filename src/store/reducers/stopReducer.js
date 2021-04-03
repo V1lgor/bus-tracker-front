@@ -2,40 +2,30 @@ import * as actionTypes from './../actions/actionTypes';
 import produce from "immer";
 import {normalize} from "normalizr";
 import Stop from "../entities/Stop";
-import {City} from "../entities/City";
 
 const initialState = {
     stopListVisible: false,
     stopList: {
-        cityList: {
-            byId: {},
-            idList: []
-        },
         byId: {},
         idList: []
     },
     filteredStopList: null
 }
 
+const normalizeStopList = (stopList) => {
+    const normalizedStopList = normalize(stopList, [Stop]);
+
+    return {
+        byId: normalizedStopList.entities.stop,
+        idList: normalizedStopList.result
+    }
+}
+
 const stopReducer = (state = initialState, action) => {
-    console.log(action.type);
     switch (action.type) {
-        case actionTypes.FETCH_STOP_LIST: {
+        case actionTypes.SET_STOP_LIST: {
             return produce(state, (draftState) => {
-                const normalizedStopList = normalize(action.stopList, [Stop]);
-                const normalizedCityList = normalize(normalizedStopList.entities.city, [City]);
-
-               draftState.stopList = {
-                    cityList: {
-                        byId: normalizedCityList.entities.city,
-                        idList: normalizedCityList.result
-                    },
-                    byId: normalizedStopList.entities.stop,
-                    idList: normalizedStopList.result
-                }
-
-                console.log(draftState.stopList);
-
+                draftState.stopList = normalizeStopList(action.stopList);
             });
         }
         case actionTypes.TOGGLE_STOP_LIST_VISIBILITY: {
@@ -44,10 +34,18 @@ const stopReducer = (state = initialState, action) => {
             })
         }
         case actionTypes.FILTER_STOP_LIST_BY_NAME_TEMPLATE:
+            const filteredStopList = [];
+
+            state.stopList.idList.forEach(stopId => {
+                const currentStop = state.stopList.byId[stopId];
+
+                if (currentStop.name.toLowerCase().startsWith(action.nameTemplate.toLowerCase())) {
+                    filteredStopList.push(currentStop);
+                }
+            });
+
             return produce(state, (draftState) => {
-                draftState.filteredStopList = state.stopList.filter(stop => {
-                    return stop.name.toLowerCase().startsWith(action.nameTemplate.toLowerCase())
-                });
+                draftState.filteredStopList = normalizeStopList(filteredStopList);
             })
         case actionTypes.CLEAR_STOP_LIST_FILTER: {
             return produce(state, (draftState) => {

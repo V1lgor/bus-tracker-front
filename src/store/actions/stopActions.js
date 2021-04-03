@@ -1,10 +1,13 @@
 import axios from 'axios';
 
 import * as actionTypes from './actionTypes';
+import {normalize} from "normalizr";
+import Stop from "../entities/Stop";
+import {setCityList} from "./cityActions";
 
-const fetchStopListSync = (stopList) => {
+const setStopList = (stopList) => {
     return {
-        type: actionTypes.FETCH_STOP_LIST,
+        type: actionTypes.SET_STOP_LIST,
         stopList
     };
 };
@@ -32,6 +35,10 @@ export const fetchStopList = () => {
     return (dispatch) => {
         axios.get('http://localhost:8080/stops')
             .then(response => response.data)
-            .then(stopList => dispatch(fetchStopListSync(stopList)))
+            .then(stopList => {
+                const normalizedStopList = normalize(stopList, [Stop]);
+                dispatch(setStopList(stopList));
+                dispatch(setCityList(normalizedStopList.entities.city));
+            })
     };
 };

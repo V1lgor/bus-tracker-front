@@ -8,14 +8,14 @@ import {Provider} from 'react-redux';
 import Header from "./containers/Header/Header";
 import Main from "./containers/Main/Main";
 import routeReducer from "./store/reducers/routeReducer";
-import ScheduleContainer from "./containers/ScheduleContainer";
-import Spinner from "./components/UI/Spinner/Spinner";
 import stopReducer from "./store/reducers/stopReducer";
+import cityReducer from "./store/reducers/cityReducer";
 
 const rootReducer = combineReducers({
     scheduleReducer: scheduleReducer,
     routeReducer: routeReducer,
-    stopReducer: stopReducer
+    stopReducer: stopReducer,
+    cityReducer: cityReducer
 });
 
 const store = createStore(rootReducer, applyMiddleware(thunk));

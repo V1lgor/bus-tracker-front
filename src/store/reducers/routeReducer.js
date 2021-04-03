@@ -8,7 +8,6 @@ const initialState = {
 }
 
 const routeReducer = (state = initialState, action) => {
-    console.log(action.type);
     switch (action.type) {
         case actionTypes.FETCH_ROUTE_LIST: {
             return produce(state, (draftState) => {
