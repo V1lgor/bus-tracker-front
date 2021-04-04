@@ -7,15 +7,9 @@ import RouteType from "../enums/RouteType";
 const initialState = {
     routeListLoaded: false,
     routeList: {
-        "COMMUTER": {
-
-        },
-        "CITY": {
-
-        },
-        "INTERCITY": {
-
-        }
+        "COMMUTER": {},
+        "CITY": {},
+        "INTERCITY": {}
     },
     routeListVisible: false,
     filteredRouteList: null
@@ -31,6 +25,30 @@ const normalizeRouteList = (routeList) => {
 
 const filterRouteListByRouteType = (routeList, routeType) => {
     return routeList.filter(route => route.routeType === routeType);
+}
+
+const routeNumberStartsWith = (routeNumber, template) => {
+    console.log(routeNumber, template);
+    return routeNumber.toLowerCase().startsWith(template.toLowerCase())
+}
+
+const filterRouteListByNumberTemplate = (routeList, numberTemplate) => {
+    console.log(routeList);
+    if (routeList.hasOwnProperty("byId")) {
+        const filteredRouteList = [];
+
+        routeList.idList.forEach(routeId => {
+            const currentRoute = routeList.byId[routeId];
+            if (routeNumberStartsWith(currentRoute.number, numberTemplate)) {
+                filteredRouteList.push(currentRoute);
+            }
+        })
+        console.log(filteredRouteList);
+        return filteredRouteList;
+    }
+
+    if (routeList instanceof Array)
+        return routeList.filter(route => routeNumberStartsWith(route.number, numberTemplate));
 }
 
 const routeReducer = (state = initialState, action) => {
@@ -54,20 +72,18 @@ const routeReducer = (state = initialState, action) => {
             })
         }
         case actionTypes.FILTER_ROUTE_LIST_BY_NUMBER_TEMPLATE:
-            const filteredRouteList = [];
-
-            state.routeList.idList.forEach(routeId => {
-                const currentRoute = state.routeList.byId[routeId];
-
-                if (currentRoute.number.toLowerCase().startsWith(action.numberTemplate.toLowerCase())) {
-                    filteredRouteList.push(currentRoute);
-                }
-            });
-
-            console.log(filteredRouteList);
-
             return produce(state, (draftState) => {
-                draftState.filteredRouteList = normalizeRouteList(filteredRouteList);
+                draftState.filteredRouteList = {};
+                for (let routeType in state.routeList) {
+                    if (state.routeList.hasOwnProperty(routeType)) {
+                        draftState.filteredRouteList[routeType] =
+                            normalizeRouteList(
+                                filterRouteListByNumberTemplate(state.routeList[routeType], action.numberTemplate)
+                            );
+                    }
+                }
+
+                console.log(draftState.filteredRouteList);
             })
         case actionTypes.CLEAR_ROUTE_LIST_FILTER: {
             return produce(state, (draftState) => {

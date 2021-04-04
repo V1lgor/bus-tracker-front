@@ -42,10 +42,10 @@ class RouteListContainer extends React.Component {
                 {this.props.cityList.idList.map(cityId => {
                     const cityRouteList = {};
 
-                    for (let routeType in this.props.routeList) {
-                        if (this.props.routeList.hasOwnProperty(routeType)) {
+                    for (let routeType in routeList) {
+                        if (routeList.hasOwnProperty(routeType)) {
 
-                            const currentTypeRouteList = this.props.routeList[routeType];
+                            const currentTypeRouteList = routeList[routeType];
                             cityRouteList[routeType] = [];
 
                             currentTypeRouteList.idList.forEach(routeId => {
