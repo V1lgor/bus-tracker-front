@@ -1,4 +1,6 @@
 .Header {
+    z-index: 100;
+    top: 0;
     display: flex;
     background-color: #3498db;
     color: #fff;

@@ -7,12 +7,17 @@ import RouteType from "../enums/RouteType";
 const initialState = {
     routeListLoaded: false,
     routeList: {
+        all: {
+            byId: {},
+            idList: []
+        },
         "COMMUTER": {},
         "CITY": {},
         "INTERCITY": {}
     },
     routeListVisible: false,
-    filteredRouteList: null
+    filteredRouteList: null,
+    selectedRoute: null
 }
 
 const normalizeRouteList = (routeList) => {
@@ -63,6 +68,7 @@ const routeReducer = (state = initialState, action) => {
                 draftState.routeList[RouteType.CITY] = normalizeRouteList(cityRouteList);
                 draftState.routeList[RouteType.COMMUTER] = normalizeRouteList(commuterRouteList);
                 draftState.routeList[RouteType.INTERCITY] = normalizeRouteList(interCityRouteList);
+                draftState.routeList.all = normalizeRouteList(action.routeList);
                 draftState.routeListLoaded = true;
             });
         }
@@ -90,7 +96,16 @@ const routeReducer = (state = initialState, action) => {
                 draftState.filteredRouteList = null;
             })
         }
-
+        case actionTypes.SET_SELECTED_ROUTE_BY_ID: {
+            return produce(state, (draftState) => {
+                draftState.selectedRoute = action.route;
+            })
+        }
+        case actionTypes.CLEAR_SELECTED_ROUTE: {
+            return produce(state, (draftState) => {
+                draftState.selectedRoute = null;
+            })
+        }
         default:
             return state;
     }

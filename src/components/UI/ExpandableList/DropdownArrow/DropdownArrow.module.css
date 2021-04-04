@@ -1,13 +1,13 @@
 .ArrowUp {
     height: 100%;
     width: 100%;
-    background-image: url('../../../assets/images/angle-arrow-up.png');
+    background-image: url('../../../../assets/images/angle-arrow-up.png');
     background-size: 100%;
 }
 
 .ArrowDown {
     height: 100%;
     width: 100%;
-    background-image: url('../../../assets/images/angle-arrow-down.png');
+    background-image: url('../../../../assets/images/angle-arrow-down.png');
     background-size: 100%;
 }

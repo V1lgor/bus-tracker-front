@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import styles from "./ExpandableList.module.css";
-import DropdownArrow from "../DropdownArrow/DropdownArrow";
+import DropdownArrow from "./DropdownArrow/DropdownArrow";
 import PropTypes from "prop-types";
 
 const ExpandableList = (props) => {

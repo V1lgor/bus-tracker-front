@@ -3,6 +3,7 @@ import React from 'react';
 import ExpandableList from "../UI/ExpandableList/ExpandableList";
 import Route from "./Route/Route";
 import RouteType from "../../store/enums/RouteType";
+import RouteList from "./RouteList/RouteList";
 
 
 const AreaRouteList = (props) => {
@@ -13,6 +14,8 @@ const AreaRouteList = (props) => {
         if (props.routeList.hasOwnProperty(routeType)) {
 
             let routeTypeTitle = null;
+
+            let shouldContinue = null;
 
             switch (routeType) {
                 case RouteType.CITY:
@@ -25,22 +28,30 @@ const AreaRouteList = (props) => {
                     routeTypeTitle = "Междугородние маршруты";
                     break;
                 default:
-                    routeTypeTitle = "Другие маршруты";
+                    shouldContinue = true;
                     break;
             }
 
-            const routeList = props.routeList[routeType].map(route => {
-                return (
-                    <Route key={route.id}
-                           number={route.number}
-                           startStop={route.startStop.name}
-                           lastStop={route.lastStop.name}
-                           onShowSchedule={() => {
-                               props.onShowSchedule(route.id)
-                           }}/>)}
-                );
+            if (shouldContinue) continue;
 
-            const expandableList = <ExpandableList title={routeTypeTitle}>{routeList}</ExpandableList>;
+            const routeList = props.routeList[routeType].map(route => {
+                    return (
+                        <Route key={route.id}
+                               number={route.number}
+                               startStop={route.startStop.name}
+                               lastStop={route.lastStop.name}
+                               onShowSchedule={() => {
+                                   props.onShowSchedule(route.id)
+                               }}
+                               onShowInfo={() => {
+                                   console.log("OK");
+                                   props.onShowInfo(route.id)
+                               }}/>)
+                }
+            );
+
+            const expandableList = <ExpandableList title={routeTypeTitle}><RouteList
+                routeList={routeList}/></ExpandableList>;
 
             routeTypes.push(expandableList);
         }

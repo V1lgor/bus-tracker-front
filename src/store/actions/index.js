@@ -8,7 +8,9 @@ export  {
     fetchRouteList,
     toggleRouteListVisibility,
     filterRouteListByNumberTemplate,
-    clearRouteListFilter
+    clearRouteListFilter,
+    setSelectedRouteById,
+    clearSelectedRoute
 } from './routeActions';
 
 export  {

@@ -1,28 +1,42 @@
 .Route {
     display: flex;
-    border-bottom: 1px solid #ccc;
-    padding: 16px 0;
+    flex-direction: column;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    padding: 8px;
     align-items: center;
+    align-content: center;
     justify-content: space-between;
 }
 
 .Description {
     font-size: 14px;
-    margin-right: 16px;
+    margin-bottom: 8px;
 }
 
 .ShowScheduleButton {
-    width: 40px;
-    height: 40px;
-    margin-right: 16px;
+    width: 32px;
+    height: 32px;
+}
+
+.ShowInfoButton {
+    width: 32px;
+    height: 32px;
 }
 
 .ShowOnMapButton {
-    width: 40px;
-    height: 40px;
+    width: 32px;
+    height: 32px;
+}
+
+.ShowVehiclesOnMapButton {
+    width: 32px;
+    height: 32px;
 }
 
 .Buttons {
-    display: flex;
-    justify-items: right;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 8px;
+    justify-self: center;
 }

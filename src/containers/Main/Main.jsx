@@ -10,17 +10,24 @@ import ScheduleContainer from "../ScheduleContainer";
 import * as actions from '../../store/actions/';
 
 import styles from './Main.module.css';
+import RouteInfoContainer from "../RouteInfoContainer/RouteInfoContainer";
 
 class Main extends React.Component {
 
     state = {
         sidebarVisible: false,
-        scheduleModalVisible: false
+        scheduleModalVisible: false,
+        routeInfoModalVisible: false
     }
 
     closeScheduleModal = () => {
         this.props.clearSchedule();
         this.setState({scheduleModalVisible: false});
+    }
+
+    closeRouteInfoModal = () => {
+        this.props.clearSelectedRoute();
+        this.setState({routeInfoModalVisible: false});
     }
 
     render() {
@@ -46,12 +53,26 @@ class Main extends React.Component {
                 </Modal>
         }
 
+        let routeInfoModal = null;
+
+        if (this.props.isRouteSelected && !this.state.routeInfoModalVisible) {
+            this.setState({routeInfoModalVisible: true});
+        }
+
+        if (this.state.routeInfoModalVisible) {
+            routeInfoModal =
+                <Modal closeModal={this.closeRouteInfoModal}>
+                    <RouteInfoContainer/>
+                </Modal>
+        }
+
         let cssClassList = [styles.Main];
 
         return (
             <main className={cssClassList.join(' ')}>
                 {sidebarContent}
                 {scheduleModal}
+                {routeInfoModal}
                 <Map/>
             </main>
         );
@@ -62,13 +83,15 @@ const mapStateToProps = (state) => {
     return {
         routeListVisible: state.routeReducer.routeListVisible,
         stopListVisible: state.stopReducer.stopListVisible,
-        selectedScheduleRouteId: state.scheduleReducer.selectedScheduleRouteId
+        selectedScheduleRouteId: state.scheduleReducer.selectedScheduleRouteId,
+        isRouteSelected: !!state.routeReducer.selectedRoute
     };
 };
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        clearSchedule: () => dispatch(actions.clearSchedule())
+        clearSchedule: () => dispatch(actions.clearSchedule()),
+        clearSelectedRoute: () => dispatch(actions.clearSelectedRoute())
     }
 }
 

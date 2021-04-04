@@ -39,7 +39,7 @@ class RouteListContainer extends React.Component {
                                  placeholder={"Введите номер маршрута"}/>
                 </div>
                 {spinner}
-                {this.props.cityList.idList.map(cityId => {
+                {this.props.routeListLoaded && this.props.cityList.idList.map(cityId => {
                     const cityRouteList = {};
 
                     for (let routeType in routeList) {
@@ -58,7 +58,8 @@ class RouteListContainer extends React.Component {
 
                     return <AreaRouteList routeList={cityRouteList}
                                           cityName={this.props.cityList.byId[cityId].name}
-                                          onShowSchedule={this.props.setSelectedSchedule}/>
+                                          onShowSchedule={this.props.setSelectedSchedule}
+                                          onShowInfo={this.props.setSelectedRoute}/>
                 })}
             </div>
         );
@@ -79,7 +80,8 @@ const mapDispatchToProps = (dispatch) => {
         fetchRouteList: () => dispatch(actions.fetchRouteList()),
         filterRouteListByNumberTemplate: (numberTemplate) => dispatch(actions.filterRouteListByNumberTemplate(numberTemplate)),
         clearRouteListFilter: () => dispatch(actions.clearRouteListFilter()),
-        setSelectedSchedule: (routeId) => dispatch(actions.setSelectedScheduleRouteId(routeId))
+        setSelectedSchedule: (routeId) => dispatch(actions.setSelectedScheduleRouteId(routeId)),
+        setSelectedRoute: (routeId) => dispatch(actions.setSelectedRouteById(routeId))
     };
 };
 
