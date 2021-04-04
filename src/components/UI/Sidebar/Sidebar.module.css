@@ -1,7 +1,9 @@
 .Sidebar {
-    grid-area: sidebar;
+    position: fixed;
+    width: 20%;
     top: 53px;
     height: 100vh;
     box-shadow: 2px 2px 5px 2px #ccc;
     background-color: #fff;
+    overflow: scroll;
 }

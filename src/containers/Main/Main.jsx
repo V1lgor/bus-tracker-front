@@ -48,10 +48,6 @@ class Main extends React.Component {
 
         let cssClassList = [styles.Main];
 
-        if (this.props.routeListVisible || this.props.stopListVisible) {
-            cssClassList.push(styles.WithSidebar)
-        }
-
         return (
             <main className={cssClassList.join(' ')}>
                 {sidebarContent}

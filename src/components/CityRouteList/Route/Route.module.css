@@ -1,0 +1,27 @@
+.Route {
+    display: flex;
+    border-bottom: 1px solid #ccc;
+    padding: 16px 0;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.Description {
+    font-size: 14px;
+}
+
+.ShowScheduleButton {
+    width: 40px;
+    height: 40px;
+    margin-right: 16px;
+}
+
+.ShowOnMapButton {
+    width: 40px;
+    height: 40px;
+}
+
+.Buttons {
+    display: flex;
+    justify-items: right;
+}

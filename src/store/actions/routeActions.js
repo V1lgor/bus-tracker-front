@@ -1,6 +1,9 @@
 import axios from 'axios';
 
 import * as actionTypes from './actionTypes';
+import {normalize} from "normalizr";
+import Route from "../entities/Route";
+import {setCityList} from "./cityActions";
 
 const setRouteList = (routeList) => {
     return {
@@ -31,7 +34,12 @@ export const clearRouteListFilter = () => {
 export const fetchRouteList = () => {
     return (dispatch) => {
         axios.get('http://localhost:8080/routes')
-            .then(response => response.data)
-            .then(routeList => dispatch(setRouteList(routeList)))
+            .then(response => {console.log(response.data); return response.data})
+            .then(routeList => {
+                const normalizedRouteList = normalize(routeList, [Route]);
+                console.log(normalizedRouteList);
+                dispatch(setRouteList(routeList))
+                dispatch(setCityList(normalizedRouteList.entities.city));
+            })
     };
 };

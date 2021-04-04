@@ -1,0 +1,29 @@
+.ExpandableList {
+    position: relative;
+    transition: 0.3s;
+    border-bottom: 1px solid #ccc;
+
+    padding: 16px;
+}
+
+.Title {
+    font-size: 24px;
+}
+
+.ExpandableList:hover {
+    cursor: pointer;
+    background-color: #efefef;
+}
+
+.Content {
+    padding: 0 24px;
+}
+
+.ArrowWrapper {
+    position: absolute;
+    width: 32px;
+    height: 32px;
+    top: 50%;
+    transform: translateY(-50%);
+    right: 8px;
+}

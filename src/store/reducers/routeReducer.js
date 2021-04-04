@@ -4,14 +4,17 @@ import {normalize} from "normalizr";
 import Route from "../entities/Route";
 
 const initialState = {
-    routeList: null,
+    routeListLoaded: false,
+    routeList: {
+        byId: {},
+        idList: []
+    },
     routeListVisible: false,
     filteredRouteList: null
 }
 
 const normalizeRouteList = (routeList) => {
     const normalizedRouteList = normalize(routeList, [Route]);
-
     return {
         byId: normalizedRouteList.entities.route,
         idList: normalizedRouteList.result
@@ -21,8 +24,10 @@ const normalizeRouteList = (routeList) => {
 const routeReducer = (state = initialState, action) => {
     switch (action.type) {
         case actionTypes.SET_ROUTE_LIST: {
+            console.log(action.routeList);
             return produce(state, (draftState) => {
                 draftState.routeList = normalizeRouteList(action.routeList);
+                draftState.routeListLoaded = true;
             });
         }
         case actionTypes.TOGGLE_ROUTE_LIST_VISIBILITY: {
