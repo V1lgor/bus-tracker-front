@@ -6,7 +6,7 @@ import {connect} from "react-redux";
 import styles from './RouteListContainer.module.css';
 import Spinner from "../../components/UI/Spinner/Spinner";
 import SearchInput from "../../components/UI/SearchInput/SearchInput";
-import CityRouteList from "../../components/CityRouteList/CityRouteList";
+import AreaRouteList from "../../components/AreaRouteList/AreaRouteList";
 
 class RouteListContainer extends React.Component {
 
@@ -40,13 +40,23 @@ class RouteListContainer extends React.Component {
                 </div>
                 {spinner}
                 {this.props.cityList.idList.map(cityId => {
-                    const cityRouteList = [];
-                    routeList.idList.forEach(routeId => {
-                        if (routeList.byId[routeId].city === cityId) {
-                            cityRouteList.push(routeList.byId[routeId]);
+                    const cityRouteList = {};
+
+                    for (let routeType in this.props.routeList) {
+                        if (this.props.routeList.hasOwnProperty(routeType)) {
+
+                            const currentTypeRouteList = this.props.routeList[routeType];
+                            cityRouteList[routeType] = [];
+
+                            currentTypeRouteList.idList.forEach(routeId => {
+                                const route = currentTypeRouteList.byId[routeId];
+
+                                if (route.city === cityId) cityRouteList[routeType].push(route);
+                            })
                         }
-                    })
-                    return <CityRouteList routeList={cityRouteList}
+                    }
+
+                    return <AreaRouteList routeList={cityRouteList}
                                           cityName={this.props.cityList.byId[cityId].name}
                                           onShowSchedule={this.props.setSelectedSchedule}/>
                 })}

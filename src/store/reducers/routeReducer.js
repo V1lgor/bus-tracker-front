@@ -2,12 +2,20 @@ import * as actionTypes from './../actions/actionTypes';
 import produce from "immer";
 import {normalize} from "normalizr";
 import Route from "../entities/Route";
+import RouteType from "../enums/RouteType";
 
 const initialState = {
     routeListLoaded: false,
     routeList: {
-        byId: {},
-        idList: []
+        "COMMUTER": {
+
+        },
+        "CITY": {
+
+        },
+        "INTERCITY": {
+
+        }
     },
     routeListVisible: false,
     filteredRouteList: null
@@ -21,12 +29,22 @@ const normalizeRouteList = (routeList) => {
     }
 }
 
+const filterRouteListByRouteType = (routeList, routeType) => {
+    return routeList.filter(route => route.routeType === routeType);
+}
+
 const routeReducer = (state = initialState, action) => {
     switch (action.type) {
         case actionTypes.SET_ROUTE_LIST: {
-            console.log(action.routeList);
+
+            const cityRouteList = filterRouteListByRouteType(action.routeList, RouteType.CITY);
+            const commuterRouteList = filterRouteListByRouteType(action.routeList, RouteType.COMMUTER);
+            const interCityRouteList = filterRouteListByRouteType(action.routeList, RouteType.INTERCITY);
+
             return produce(state, (draftState) => {
-                draftState.routeList = normalizeRouteList(action.routeList);
+                draftState.routeList[RouteType.CITY] = normalizeRouteList(cityRouteList);
+                draftState.routeList[RouteType.COMMUTER] = normalizeRouteList(commuterRouteList);
+                draftState.routeList[RouteType.INTERCITY] = normalizeRouteList(interCityRouteList);
                 draftState.routeListLoaded = true;
             });
         }
