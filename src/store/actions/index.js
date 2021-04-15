@@ -19,3 +19,7 @@ export  {
     filterStopListByNameTemplate,
     clearStopListFilter
 } from './stopActions';
+
+export  {
+    checkLogPass
+} from './authorization';

@@ -1,5 +1,5 @@
 import React from 'react';
-import Map from "../../components/Map/Map";
+import MapC from "../../components/Map/Map";
 import RouteListContainer from "../RouteListContainer/RouteListContainer";
 import {connect} from "react-redux";
 import Sidebar from "../../components/UI/Sidebar/Sidebar";
@@ -73,7 +73,7 @@ class Main extends React.Component {
                 {sidebarContent}
                 {scheduleModal}
                 {routeInfoModal}
-                <Map/>
+                <MapC/>
             </main>
         );
     };

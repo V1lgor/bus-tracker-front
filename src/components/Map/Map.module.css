@@ -1,6 +1,19 @@
 .Map {
-    height: 100vh;
-    grid-area: map;
+    width: 430px;
+    height: 320px;
+    border: 1px solid black;
+    margin: 0;
+    padding: 0;
+    background-color:#ccc;
+}
+
+.MapContent {
+    width: 70%;
+    display: grid;
+    grid-template-columns: 70% auto;
+    justify-self: center;
+    padding: 20px 0;
+    margin: 0 auto;
 }
 
 .Map img {
