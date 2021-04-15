@@ -6,15 +6,7 @@ import RouteType from "../enums/RouteType";
 
 const initialState = {
     routeListLoaded: false,
-    routeList: {
-        all: {
-            byId: {},
-            idList: []
-        },
-        "COMMUTER": {},
-        "CITY": {},
-        "INTERCITY": {}
-    },
+    routeList: null,
     routeListVisible: false,
     filteredRouteList: null,
     selectedRoute: null
@@ -38,7 +30,6 @@ const routeNumberStartsWith = (routeNumber, template) => {
 }
 
 const filterRouteListByNumberTemplate = (routeList, numberTemplate) => {
-    console.log(routeList);
     if (routeList.hasOwnProperty("byId")) {
         const filteredRouteList = [];
 
@@ -48,7 +39,6 @@ const filterRouteListByNumberTemplate = (routeList, numberTemplate) => {
                 filteredRouteList.push(currentRoute);
             }
         })
-        console.log(filteredRouteList);
         return filteredRouteList;
     }
 
@@ -65,9 +55,13 @@ const routeReducer = (state = initialState, action) => {
             const interCityRouteList = filterRouteListByRouteType(action.routeList, RouteType.INTERCITY);
 
             return produce(state, (draftState) => {
-                draftState.routeList[RouteType.CITY] = normalizeRouteList(cityRouteList);
-                draftState.routeList[RouteType.COMMUTER] = normalizeRouteList(commuterRouteList);
-                draftState.routeList[RouteType.INTERCITY] = normalizeRouteList(interCityRouteList);
+                draftState.routeList = {
+                    byType: {}
+                };
+
+                draftState.routeList.byType[RouteType.CITY] = normalizeRouteList(cityRouteList);
+                draftState.routeList.byType[RouteType.COMMUTER] = normalizeRouteList(commuterRouteList);
+                draftState.routeList.byType[RouteType.INTERCITY] = normalizeRouteList(interCityRouteList);
                 draftState.routeList.all = normalizeRouteList(action.routeList);
                 draftState.routeListLoaded = true;
             });
@@ -79,17 +73,17 @@ const routeReducer = (state = initialState, action) => {
         }
         case actionTypes.FILTER_ROUTE_LIST_BY_NUMBER_TEMPLATE:
             return produce(state, (draftState) => {
-                draftState.filteredRouteList = {};
+                draftState.filteredRouteList = {
+                    byType: {}
+                };
                 for (let routeType in state.routeList) {
                     if (state.routeList.hasOwnProperty(routeType)) {
-                        draftState.filteredRouteList[routeType] =
+                        draftState.filteredRouteList.byType[routeType] =
                             normalizeRouteList(
                                 filterRouteListByNumberTemplate(state.routeList[routeType], action.numberTemplate)
                             );
                     }
                 }
-
-                console.log(draftState.filteredRouteList);
             })
         case actionTypes.CLEAR_ROUTE_LIST_FILTER: {
             return produce(state, (draftState) => {
@@ -105,6 +99,12 @@ const routeReducer = (state = initialState, action) => {
             return produce(state, (draftState) => {
                 draftState.selectedRoute = null;
             })
+        }
+        case actionTypes.CLEAR_ROUTE_LIST: {
+            return produce(state, (draftState) => {
+                draftState.routeList = null;
+                draftState.routeListLoaded = false;
+            });
         }
         default:
             return state;
