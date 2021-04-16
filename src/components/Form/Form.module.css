@@ -1,0 +1,19 @@
+.formStyle {
+    display: grid;
+    grid-template-rows: 80px 80px auto;
+    grid-template-columns: 100px auto;
+    grid-gap: 5px;
+}
+
+.gridRow {
+    display: grid;
+    grid-template-columns: 100px auto;
+}
+
+.button {
+    display: block;
+}
+
+input {
+    display: block;
+}

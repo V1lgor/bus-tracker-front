@@ -7,6 +7,7 @@ import {Provider} from 'react-redux';
 
 import Header from "./containers/Header/Header";
 import Main from "./containers/Main/Main";
+import Form from "./components/Form/Form";
 import routeReducer from "./store/reducers/routeReducer";
 import stopReducer from "./store/reducers/stopReducer";
 import cityReducer from "./store/reducers/cityReducer";
