@@ -1,22 +1,8 @@
 .Map {
-    width: 430px;
-    height: 320px;
+    width: 100%;
+    height: 900px; /* height: 100%; - почему-то не хочет работать вкупе с height: 900px; внутри Main.module*/
     border: 1px solid black;
     margin: 0;
     padding: 0;
     background-color:#ccc;
-}
-
-.MapContent {
-    width: 70%;
-    display: grid;
-    grid-template-columns: 70% auto;
-    justify-self: center;
-    padding: 20px 0;
-    margin: 0 auto;
-}
-
-.Map img {
-    width: 100%;
-    height: 100vh;
 }

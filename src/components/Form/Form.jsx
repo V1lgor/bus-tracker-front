@@ -5,7 +5,7 @@ import {connect} from "react-redux";
 import {checkLogPass} from "../../store/actions/authorization";
 import Modal from "../UI/Modal/Modal";
 
-const Form = (props) => {
+const Form = () => {
     const login = React.createRef();
     const password = React.createRef();
 
@@ -25,10 +25,18 @@ const Form = (props) => {
 
     return (
         <div>
-            <form action={props.submitFunc}>
-            <div> Логин <input ref={login} type="text" name="login"/> </div>
-            <div> Пароль <input ref={password} type="password" name="password"/> </div>
-            <input type="submit"/>
+            <form action={submitFunc} className={styles.formStyle}>
+                <div className={styles.gridRow}>
+                    <div>Логин</div>
+                    <input ref={login} type="text" name="login"/>
+                </div>
+                <div className={styles.gridRow}>
+                    <div>Пароль</div>
+                    <input ref={password} type="password" name="password"/>
+                </div>
+                <div>
+                    <input type="submit" className={styles.button}/>
+                </div>
             </form>
             {success}
         </div>

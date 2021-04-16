@@ -27,7 +27,6 @@ const App = () => {
             <div className='App'>
                 <Header/>
                 <Main/>
-                <Form/>
             </div>
         </Provider>
     );
