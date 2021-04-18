@@ -6,4 +6,5 @@
     box-shadow: 2px 2px 5px 2px #ccc;
     background-color: #fff;
     overflow: scroll;
+    z-index: 1000;
 }
