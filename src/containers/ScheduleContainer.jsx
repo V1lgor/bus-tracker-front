@@ -10,18 +10,17 @@ import Spinner from "../components/UI/Spinner/Spinner";
 
 const ScheduleContainer = (props) => {
 
-    const {selectedSchedule} = props;
+    const {selectedSchedule, routeId, fetchRouteScheduleByRouteId} = props;
 
     const [loadingSchedule, setLoadingSchedule] = useState(true);
 
     useEffect(() => {
-        setLoadingSchedule(true);
-        setTimeout(() => props.fetchRouteScheduleByRouteId(props.routeId), 1000);
-    }, []);
+        fetchRouteScheduleByRouteId(routeId);
+    }, [routeId, fetchRouteScheduleByRouteId]);
 
     useEffect(() => {
         if (selectedSchedule) setLoadingSchedule(false);
-    }, [selectedSchedule, loadingSchedule]);
+    }, [selectedSchedule, loadingSchedule])
 
     let spinner = null;
 
@@ -37,15 +36,12 @@ const ScheduleContainer = (props) => {
             scheduleError = <p>Извините, расписание данного маршрута еще не заполнено.</p>
         } else {
             schedule =
-                <React.Fragment>
-                    <Schedule
-                        routeNumber={props.selectedSchedule.route.number}
-                        startStop={props.selectedSchedule.route.startStop}
-                        lastStop={props.selectedSchedule.route.lastStop}
-                        schedule={props.selectedSchedule.schedule}
-                    />
-                    <a href="#" className="link">Скачать в формате Excel</a>
-                </React.Fragment>
+                <Schedule
+                    routeNumber={props.selectedSchedule.route.number}
+                    startStop={props.selectedSchedule.route.startStop}
+                    lastStop={props.selectedSchedule.route.lastStop}
+                    schedule={props.selectedSchedule.schedule}
+                />
         }
     }
     if (props.scheduleError) {
@@ -57,7 +53,6 @@ const ScheduleContainer = (props) => {
             {spinner}
             {schedule}
             {scheduleError}
-
         </div>
     );
 };

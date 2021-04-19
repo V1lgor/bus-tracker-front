@@ -10,7 +10,8 @@ export  {
     filterRouteListByNumberTemplate,
     clearRouteListFilter,
     setSelectedRouteById,
-    clearSelectedRoute
+    clearSelectedRoute,
+    clearRouteList
 } from './routeActions';
 
 export  {

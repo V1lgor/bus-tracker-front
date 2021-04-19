@@ -34,24 +34,11 @@ const AreaRouteList = (props) => {
 
             if (shouldContinue) continue;
 
-            const routeList = props.routeList[routeType].map(route => {
-                    return (
-                        <Route key={route.id}
-                               number={route.number}
-                               startStop={route.startStop.name}
-                               lastStop={route.lastStop.name}
-                               onShowSchedule={() => {
-                                   props.onShowSchedule(route.id)
-                               }}
-                               onShowInfo={() => {
-                                   console.log("OK");
-                                   props.onShowInfo(route.id)
-                               }}/>)
-                }
-            );
 
             const expandableList = <ExpandableList title={routeTypeTitle}><RouteList
-                routeList={routeList}/></ExpandableList>;
+                onShowInfo={props.onShowInfo}
+                onShowSchedule={props.onShowSchedule}
+                routeList={props.routeList[routeType]}/></ExpandableList>;
 
             routeTypes.push(expandableList);
         }

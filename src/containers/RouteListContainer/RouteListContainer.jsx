@@ -31,7 +31,7 @@ class RouteListContainer extends React.Component {
         if (this.props.routeList)
             routeList = this.props.filteredRouteList ? this.props.filteredRouteList : this.props.routeList;
 
-
+        console.log(routeList);
         return (
             <div className={styles.RouteListContainer}>
                 <div className={styles.SearchField}>
@@ -42,10 +42,10 @@ class RouteListContainer extends React.Component {
                 {this.props.routeListLoaded && this.props.cityList.idList.map(cityId => {
                     const cityRouteList = {};
 
-                    for (let routeType in routeList) {
-                        if (routeList.hasOwnProperty(routeType)) {
+                    for (let routeType in routeList.byType) {
+                        if (routeList.byType.hasOwnProperty(routeType)) {
 
-                            const currentTypeRouteList = routeList[routeType];
+                            const currentTypeRouteList = routeList.byType[routeType];
                             cityRouteList[routeType] = [];
 
                             currentTypeRouteList.idList.forEach(routeId => {

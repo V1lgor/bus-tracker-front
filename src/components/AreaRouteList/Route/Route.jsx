@@ -9,7 +9,7 @@ import QuestionMarkIcon from "../../UI/icons/QuestionMarkIcon";
 import EyeIcon from "../../UI/icons/EyeIcon";
 
 const Route = (props) => {
-
+    console.log(props);
     return (
         <div className={styles.Route}>
             <div className={styles.Description}>

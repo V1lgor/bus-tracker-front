@@ -1,0 +1,9 @@
+.RouteTable {
+    border-collapse: collapse;
+}
+
+.RouteTable td, .RouteTable th {
+    padding: 8px 16px;
+    border: 1px solid #ccc;
+    text-align: center;
+}

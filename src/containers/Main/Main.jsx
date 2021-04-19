@@ -31,6 +31,10 @@ class Main extends React.Component {
         this.setState({routeInfoModalVisible: false});
     }
 
+    componentWillUnmount() {
+        this.props.clearRouteList();
+    }
+
     render() {
 
         let sidebarContent = null;
@@ -94,8 +98,9 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
     return {
         clearSchedule: () => dispatch(actions.clearSchedule()),
-        clearSelectedRoute: () => dispatch(actions.clearSelectedRoute())
-    }
-}
+        clearSelectedRoute: () => dispatch(actions.clearSelectedRoute()),
+        clearRouteList: () => dispatch(actions.clearRouteList())
+    };
+};
 
 export default connect(mapStateToProps, mapDispatchToProps)(Main);
