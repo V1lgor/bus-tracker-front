@@ -15,9 +15,8 @@ const Authorization = () => {
 
     return (
         <div className={styles.Auth} onMouseOver={mouseOverAction}>
-            Модернизация
+            Перейти в режим админа
             <img src={Authpic} alt=""/>
-            <Form/>
         </div>
     );
 };
