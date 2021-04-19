@@ -1,5 +1,5 @@
 import React from 'react';
-import Map from "../../components/Map/Map";
+import Maps from "../../components/Map/Map";
 import RouteListContainer from "../RouteListContainer/RouteListContainer";
 import {connect} from "react-redux";
 import Sidebar from "../../components/UI/Sidebar/Sidebar";
@@ -11,6 +11,7 @@ import * as actions from '../../store/actions/';
 
 import styles from './Main.module.css';
 import RouteInfoContainer from "../RouteInfoContainer/RouteInfoContainer";
+import Form from "../../components/Form/Form";
 
 class Main extends React.Component {
 
@@ -77,7 +78,9 @@ class Main extends React.Component {
                 {sidebarContent}
                 {scheduleModal}
                 {routeInfoModal}
-                <Map/>
+                <div className={styles.Map}>
+                    <Maps/>
+                </div>
             </main>
         );
     };

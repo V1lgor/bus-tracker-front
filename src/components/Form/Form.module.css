@@ -1,0 +1,14 @@
+.formStyle {
+    margin-top: 8px;
+}
+.formElement label {
+    display: block;
+}
+
+.formElement input, .formElement select {
+    margin-top: 8px;
+    margin-bottom: 8px;
+    padding: 4px;
+    border-color: #ccc;
+    outline: none;
+}

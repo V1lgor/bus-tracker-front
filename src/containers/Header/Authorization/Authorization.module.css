@@ -1,0 +1,10 @@
+.Auth {
+    display: flex;
+    align-items: center;
+    height: 32px;
+    padding-left: 16px;
+}
+
+.Auth img {
+    height: 100%;
+}
