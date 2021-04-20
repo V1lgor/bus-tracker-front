@@ -30,6 +30,7 @@ const routeNumberStartsWith = (routeNumber, template) => {
 }
 
 const filterRouteListByNumberTemplate = (routeList, numberTemplate) => {
+    console.log(routeList);
     if (routeList.hasOwnProperty("byId")) {
         const filteredRouteList = [];
 
@@ -38,7 +39,8 @@ const filterRouteListByNumberTemplate = (routeList, numberTemplate) => {
             if (routeNumberStartsWith(currentRoute.number, numberTemplate)) {
                 filteredRouteList.push(currentRoute);
             }
-        })
+        });
+
         return filteredRouteList;
     }
 
@@ -76,11 +78,12 @@ const routeReducer = (state = initialState, action) => {
                 draftState.filteredRouteList = {
                     byType: {}
                 };
-                for (let routeType in state.routeList) {
-                    if (state.routeList.hasOwnProperty(routeType)) {
+                for (let routeType in state.routeList.byType) {
+                    if (state.routeList.byType.hasOwnProperty(routeType)) {
+                        console.log(state.routeList);
                         draftState.filteredRouteList.byType[routeType] =
                             normalizeRouteList(
-                                filterRouteListByNumberTemplate(state.routeList[routeType], action.numberTemplate)
+                                filterRouteListByNumberTemplate(state.routeList.byType[routeType], action.numberTemplate)
                             );
                     }
                 }

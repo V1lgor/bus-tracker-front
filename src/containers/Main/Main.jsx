@@ -11,7 +11,6 @@ import * as actions from '../../store/actions/';
 
 import styles from './Main.module.css';
 import RouteInfoContainer from "../RouteInfoContainer/RouteInfoContainer";
-import Form from "../../components/Form/Form";
 
 class Main extends React.Component {
 
