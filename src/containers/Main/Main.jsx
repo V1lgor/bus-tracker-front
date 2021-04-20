@@ -21,10 +21,10 @@ class Main extends React.Component {
         routeInfoModalVisible: false
     }
 
-    closeScheduleModal = () => {
+    /*closeScheduleModal = () => {
         this.props.clearSchedule();
         this.setState({scheduleModalVisible: false});
-    }
+    }*/
 
     closeRouteInfoModal = () => {
         this.props.clearSelectedRoute();
