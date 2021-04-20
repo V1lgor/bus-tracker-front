@@ -68,9 +68,10 @@ export const clearRouteList = () => {
 export const fetchRouteList = () => {
     return (dispatch) => {
         axios.get('http://localhost:8080/routes')
-            .then(response => {return response.data})
+            .then(response => {console.log(response); return response.data})
             .then(routeList => {
                 const normalizedRouteList = normalize(routeList, [Route]);
+                console.log(normalizedRouteList)
                 batch(() => {
                     dispatch(setRouteList(routeList));
                     dispatch(setCityList(normalizedRouteList.entities.city))
