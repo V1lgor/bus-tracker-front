@@ -1,0 +1,14 @@
+.RoadControlPanel {
+    position: fixed;
+    z-index: 1000;
+    top: 16px;
+    left: 16px;
+    box-shadow: 0 0 5px 0 #ccc;
+    background-color: #fff;
+    padding: 16px 16px 0;
+    border-radius: 8px;
+}
+
+.ControlElement {
+    margin-bottom: 16px;
+}

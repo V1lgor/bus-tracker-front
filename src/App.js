@@ -13,12 +13,15 @@ import cityReducer from "./store/reducers/cityReducer";
 import {BrowserRouter} from "react-router-dom";
 import {Route, Switch} from "react-router";
 import RouteDashboard from "./containers/Dashboard/RouteDashboard/RouteDashboard";
+import RoadNodeDashboard from "./containers/Dashboard/RoadNodeDashboard/RoadNodeDashboard";
+import roadReducer from "./store/reducers/roadReducer";
 
 const rootReducer = combineReducers({
     scheduleReducer: scheduleReducer,
     routeReducer: routeReducer,
     stopReducer: stopReducer,
-    cityReducer: cityReducer
+    cityReducer: cityReducer,
+    roadReducer: roadReducer
 });
 
 const store = createStore(rootReducer, applyMiddleware(thunk));
@@ -31,6 +34,9 @@ const App = () => {
                     <Switch>
                         <Route path={"/dashboard/routes"}>
                             <RouteDashboard/>
+                        </Route>
+                        <Route path={"/dashboard/road"}>
+                            <RoadNodeDashboard/>
                         </Route>
                         <Route path={"/"}>
                             <Header/>

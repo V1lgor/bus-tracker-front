@@ -21,6 +21,10 @@ export  {
     clearStopListFilter
 } from './stopActions';
 
+export {
+    fetchRoadGraph
+} from './roadActions';
+
 export  {
     checkLogPass
 } from './authorization';

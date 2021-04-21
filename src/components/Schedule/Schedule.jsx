@@ -1,8 +1,10 @@
-import React from 'react';
+import React, {useState} from 'react';
 
 import PropTypes from 'prop-types';
+import styles from './Schedule.module.css';
 
 const Schedule = (props) => {
+    const [displayColor, setDisplayColor] = useState(true);
     // Максимальное количество рейсов одного графика на маршруте
     let tripCount = 0;
     let maxTripForwardVehicleScheduleIndex = 0;
@@ -57,27 +59,48 @@ const Schedule = (props) => {
                     <tbody>
                     <tr className='vehicle-schedule'>{headerCellList}</tr>
                     {props.schedule.map((vehicleSchedule) => {
+                        let nowTrip = 0;
                         const scheduleRow = [<td>{vehicleSchedule.number}</td>];
                         const isScheduleShifted = isFirstTripReversed
                             ? !vehicleSchedule.schedule[0].directionReverse
                             : false;
                         if (isScheduleShifted) {
-                            scheduleRow.push(<td></td>);
+                            scheduleRow.push(<td/>);
                         }
-                        vehicleSchedule.schedule.forEach((trip) => {
-                            scheduleRow.push(<td>{trip.startTime.slice(0, 5)}</td>);
+                        vehicleSchedule.schedule.forEach((trip, index) => {
+                            let today = new Date();
+                            let curTime = today.getHours() + ":" + today.getMinutes();
+                            const nextTrip = vehicleSchedule.schedule[index + 1];
+                            if (curTime > trip.startTime.slice(0, 5) && displayColor) {
+                                if (curTime > trip.startTime.slice(0, 5)
+                                    && nextTrip
+                                    && curTime <= nextTrip.startTime.slice(0, 5)
+                                    && displayColor) {
+                                    scheduleRow.push(<td
+                                        className={styles.ScheduleNow}>{trip.startTime.slice(0, 5)}</td>);
+                                } else
+                                    scheduleRow.push(<td
+                                        className={styles.ScheduleLate}>{trip.startTime.slice(0, 5)}</td>);
+                            } else {
+                                scheduleRow.push(<td>{trip.startTime.slice(0, 5)}</td>);
+                            }
                         });
 
                         const remainingCellsCount = tripCount - scheduleRow.length + 1;
 
                         for (let i = 0; i < remainingCellsCount; i++) {
-                            scheduleRow.push(<td></td>);
+                            scheduleRow.push(<td/>);
                         }
 
                         return <tr>{scheduleRow}</tr>;
                     })}
                     </tbody>
                 </table>
+                <p><input type="checkbox" id="lateCheck" onChange={() => {
+                    setDisplayColor(!displayColor)
+                }}
+                          checked={displayColor}/>Показывать завершенные рейсы
+                </p>
             </div>
         </div>
     );
