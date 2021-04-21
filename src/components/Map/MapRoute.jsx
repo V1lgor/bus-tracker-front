@@ -2,7 +2,6 @@ import React from 'react';
 
 import styles from './Map.module.css';
 import {YMaps, Map, Placemark, GeoObject, ZoomControl} from "react-yandex-maps";
-import axios from "axios";
 
 const myStates = {
     center: [51.517366, 46.070179],
@@ -10,12 +9,17 @@ const myStates = {
     zoom: 13
 };
 
-class Maps extends React.Component {
+class MapRoute extends React.Component {
     state = {
         stops: [],
         routeForward: [],
         routeBackward: [],
         lines: []
+    }
+
+    constructor(props) {
+        super(props);
+        this.map = null;
     }
 
     componentDidMount() {
@@ -743,15 +747,7 @@ class Maps extends React.Component {
             46.21928995423041, 51.51348373512408,
             46.21908610634528, 51.51349712374037
         ];
-
-        axios.get('http://localhost:8080/routes/1/path')
-            .then(response => response.data)
-            .then(roadNodeList => {
-                console.log(roadNodeList);
-                const coords = roadNodeList.map(roadNode => [roadNode.xPos, roadNode.yPos]);
-                console.log(coords);
-                this.setState({stops, routeForward: coords, routeBackward});
-            })
+        this.setState({stops, routeForward, routeBackward});
     }
 
     pointAndBalloon(element, color) {
@@ -779,11 +775,11 @@ class Maps extends React.Component {
 
     drawRoute(element, color) {
         let lines = []
-        for (let i = 0; i < element.length - 1; i++) {
-            let x_pos_1 = element[i][0];
-            let y_pos_1 = element[i][1];
-            let x_pos_2 = element[i + 1][0];
-            let y_pos_2 = element[i + 1][1];
+        for (let i = 0; i < element.length - 2;) {
+            let x_pos_1 = element[i + 1];
+            let y_pos_1 = element[i];
+            let x_pos_2 = element[i + 3];
+            let y_pos_2 = element[i + 2];
             let line = {
                 id: i,
                 xPosStart: x_pos_1,
@@ -792,9 +788,8 @@ class Maps extends React.Component {
                 yPosFinish: y_pos_2,
             }
             lines.push(line);
+            i += 2;
         }
-
-        console.log(lines);
         return lines.map(line => <GeoObject
             key={line.id}
             geometry={{
@@ -816,21 +811,41 @@ class Maps extends React.Component {
         />)
     }
 
+    onApiAvailable(ymaps) {
+        console.log(ymaps);
+        ymaps.route(this.state.stops.map(stop => {
+            console.log(stop);
+            return {type: 'wayPoint', point: [stop.x_pos, stop.y_pos]}
+        }), {
+            mapStateAutoApply: true
+        }).then((route) => {
+            route.getPaths().options.set({
+                // в балуне выводим только информацию о времени движения с учетом пробок
+                balloonContentBodyLayout: ymaps.templateLayoutFactory.createClass('$[properties.humanJamsTime]'),
+                // можно выставить настройки графики маршруту
+                strokeColor: '0000ffff',
+                opacity: 0.9
+            });
+
+            // добавляем маршрут на карту
+            this.map.geoObjects.add(route);
+        });
+    }
+
     render() {
         return (
-            <div className={styles.Map}>
-                <YMaps>
-                    <div>
-                        <Map defaultState={myStates} className={styles.Map}>
-                            {this.pointAndBalloon(this.state.stops, 'islands#blueDotIcon')}
-                            {this.drawRoute(this.state.routeForward, '#2ed496')}
-                            <ZoomControl options={{ float: 'right', position: {top: 300, left: 15} }} />
-                        </Map>
-                    </div>
+            <div className={styles.MapContent}>
+                <YMaps onLoad={(ymaps) => this.onApiAvailable(ymaps)}>
+                    <Map
+                        onLoad={(ymaps) => this.onApiAvailable(ymaps)}
+                        state={myStates}
+                        instanceRef={(ref) => this.map = ref}
+                        className={styles.Map}
+                    />
                 </YMaps>
             </div>
         )
     }
 }
 
-export default Maps;
+export default MapRoute;
