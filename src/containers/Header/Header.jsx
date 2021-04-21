@@ -10,7 +10,7 @@ const Header = (props) => {
         <div className={styles.Header}>
             <Logo/>
             <Menu/>
-
+            <Authorization/>
         </div>
     );
 };

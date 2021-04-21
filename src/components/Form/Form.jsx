@@ -86,39 +86,41 @@ const formConfigTest = {
     }
 }
 
-const Form = (onSubmit, formConfig) => {
+const Form = (props) => {
     const login = React.createRef();
     const password = React.createRef();
-
+    let onSubmit = props.onSubmit;
+    let formConfig = props.formConfig;
     let elementsToRender = [];
+    console.log(props);
     let i = 0;
-    for (let elem in formConfigTest) {
+    for (let elem in formConfig) {
         let block = null;
-        switch(formConfigTest[elem].elementType) {
+        switch(formConfig[elem].elementType) {
             case 'input':
                 block =
                     <div className={styles.formElement}>
-                        <label htmlFor={formConfigTest[elem].elementId}>
-                            {formConfigTest[elem].elementLabel}
+                        <label htmlFor={formConfig[elem].elementId}>
+                            {formConfig[elem].elementLabel}
                         </label>
                         <input key={i}
-                               id={formConfigTest[elem].elementId}
+                               id={formConfig[elem].elementId}
                                //ref={inputRef} Как я буду считывать данные? А? А? А? А?
-                               type={formConfigTest[elem].elementConfig.type}
-                               placeholder={formConfigTest[elem].elementConfig.placeholder}
-                               minLength={formConfigTest[elem].validation.minLength}
-                               maxLength={formConfigTest[elem].validation.maxLength}
+                               type={formConfig[elem].elementConfig.type}
+                               placeholder={formConfig[elem].elementConfig.placeholder}
+                               minLength={formConfig[elem].validation.minLength}
+                               maxLength={formConfig[elem].validation.maxLength}
                         />
                     </div>
                 break;
             case 'select':
-                let options = formConfigTest[elem].elementConfig.options;
+                let options = formConfig[elem].elementConfig.options;
                 block =
                     <div className={styles.formElement}>
-                        <label htmlFor={formConfigTest[elem].elementId}>
-                            {formConfigTest[elem].elementLabel}
+                        <label htmlFor={formConfig[elem].elementId}>
+                            {formConfig[elem].elementLabel}
                         </label>
-                        <select id={formConfigTest[elem].elementId}>
+                        <select id={formConfig[elem].elementId}>
                             {options.map((option) => (
                                 <option key={i} value={option.value}>{option.displayValue}</option>
                             ))}

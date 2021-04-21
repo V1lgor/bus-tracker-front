@@ -1,10 +1,10 @@
-.Auth {
+.auth {
     display: flex;
     align-items: center;
     height: 32px;
     padding-left: 16px;
 }
 
-.Auth img {
+.auth img {
     height: 100%;
 }

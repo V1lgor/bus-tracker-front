@@ -743,6 +743,132 @@ class Maps extends React.Component {
             46.21908610634528, 51.51349712374037
         ];
         this.setState({stops, routeForward, routeBackward});
+        // По факту придет нечто подобное
+        let route = {
+                "id": 1,
+                "number": "284",
+                "vehicleType": "BUS",
+                "routeType": "COMMUTER",
+                "city": {
+                    "id": 2,
+                    "name": "Энгельс"
+                },
+                "startStop": {
+                    "id": 1,
+                    "name": "пос. Прибрежный",
+                    "stopType": "BUS",
+                    "city": {
+                        "id": 2,
+                        "name": "Энгельс"
+                    },
+                    "xPos": 51.513541,
+                    "yPos": 46.219179,
+                    "roadNode": {
+                        "id": 1,
+                        "xPos": 51.513505297303496,
+                        "yPos":  46.2190290146177
+                    }
+                },
+                "lastStop": {
+                    "id": 2,
+                    "name": "Ж/д вокзал (Саратов)",
+                    "stopType": "BUS",
+                    "city": {
+                        "id": 1,
+                        "name": "Саратов",
+                    },
+                    "xPos": 51.540861,
+                    "yPos": 46.001038,
+                    "roadNode": {
+                        "id": 1,
+                        "xPos": 51.5408808478609,
+                        "yPos": 46.0009584565263,
+                    }
+                },
+                "vehicleCount": 8,
+                "tripTime": 666,
+                "length": 23,
+                "company": {
+                    "id": 1,
+                    "name": "АО Межгородтранс",
+                    "phone": null,
+                    "address": "г. Саратов, ул. Васильковская, д. 1"
+                },
+                "stopList": [
+                    {
+                        "id": {
+                            "routeId": 1,
+                            "stopId": 1
+                        },
+                        "stop": {
+                            "id": 1,
+                            "name": "пос. Прибрежный",
+                            "stopType": "BUS",
+                            "city": {
+                                "id": 2,
+                                "name": "Энгельс"
+                            },
+                            "xPos": 51.513541,
+                            "yPos": 46.219179,
+                            "roadNode": {
+                                "id": 1,
+                                "xPos": 51.513505297303496,
+                                "yPos":  46.2190290146177
+                            }
+                        },
+                        "number": 1,
+                        "directionForward": true
+                    },
+                    {
+                        "id": {
+                            "routeId": 1,
+                            "stopId": 12
+                        },
+                        "stop": {
+                            "id": 11,
+                            "name": "",
+                            "stopType": "BUS",
+                            "city": {
+                                "id": 2,
+                                "name": "Энгельс"
+                            },
+                            "xPos": null,
+                            "yPos": null,
+                            "roadNode": {
+                                "id": 11,
+                                "xPos": 51.511115997162484,
+                                "yPos": 46.218466440049376,
+                            }
+                        },
+                        "number": 4,
+                        "directionForward": true
+                    },
+                    {
+                        "id": {
+                            "routeId": 1,
+                            "stopId": 11
+                        },
+                        "stop": {
+                            "id": 11,
+                            "name": "Поворот на пос. Прибрежный",
+                            "stopType": "BUS",
+                            "city": {
+                                "id": 2,
+                                "name": "Энгельс"
+                            },
+                            "xPos": 51.510607,
+                            "yPos": 46.218317,
+                            "roadNode": {
+                                "id": 7,
+                                "xPos": 51.51067383246821,
+                                "yPos": 46.218382946907525,
+                            }
+                        },
+                        "number": 3,
+                        "directionForward": true
+                    }
+                ]
+            }
     }
 
     pointAndBalloon(element, color) {
