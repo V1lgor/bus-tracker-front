@@ -5,6 +5,7 @@ import * as actions from './../../../store/actions';
 
 import styles from './Menu.module.css';
 import {connect} from "react-redux";
+import Authorization from "../Authorization/Authorization";
 
 const Menu = (props) => {
 
@@ -29,6 +30,7 @@ const Menu = (props) => {
             <MenuItem text={"Маршруты"} onClick={handleRoutesItemClick}/>
             <MenuItem text={"Остановки"} onClick={handleStopsItemClick}/>
             <MenuItem text={"Звонок диспетчеру"} />
+            <Authorization className={styles.auth}/>
         </div>
     );
 };

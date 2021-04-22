@@ -6,14 +6,13 @@ import Authpic from '../../../assets/images/authorization.png';
 import Form from "../../../components/Form/Form";
 import Modal from "../../../components/UI/Modal/Modal";
 
-let authForm = null;
-
-const mouseOverAction = () => {
-    console.log("hovered");
-    authForm =  <Modal><Form onSubmit={onSubmit} formConfig={formConfig}/></Modal>;
+const onSubmit = () => {
+    let formResult = {
+        email: document.getElementById("inputEmail").value,
+        password: document.getElementById("inputPassword").value
+    }
+    console.log(formResult);
 }
-
-const onSubmit = () => {}
 
 const formConfig = {
     email: {
@@ -44,19 +43,38 @@ const formConfig = {
     }
 }
 
-class Authorization extends React.Component {
+let authForm = null;
 
+class Authorization extends React.Component {
     state = {
-        Visible: false,
-        scheduleModalVisible: false,
-        routeInfoModalVisible: false
+        Visible: true // Из-за того, что state меняется с опозданием на один такт,
+        // пусть он первоначально будет как бы показываться
+    }
+
+    updateState = () => {
+        authForm = null;
+        this.reverseState();
+    }
+
+    reverseState = () => {
+        this.setState({Visible: !this.state.Visible});
+    }
+
+    onClickEvent = () => {
+        this.reverseState();
+        if (this.state.Visible) {
+            authForm =
+                <Modal closeModal={this.updateState}>
+                    <Form onSubmit={onSubmit} formConfig={formConfig}/>
+                </Modal>;
+        }
     }
 
     render () {
         return (
-            <div className={styles.auth} onMouseOver={mouseOverAction}>
+            <div className={styles.auth} onClick={this.onClickEvent}>
                 <img src={Authpic} alt=""/>
-                <p>Перейти в режим редактирования</p>
+                <p>Режим редактирования</p>
                 {authForm}
             </div>
         );

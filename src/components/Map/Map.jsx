@@ -824,7 +824,7 @@ class Maps extends React.Component {
                         <Map defaultState={myStates} className={styles.Map}>
                             {this.pointAndBalloon(this.state.stops, 'islands#blueDotIcon')}
                             {this.drawRoute(this.state.routeForward, '#2ed496')}
-                            <ZoomControl options={{ float: 'right', position: {top: 300, left: 15} }} />
+                            <ZoomControl options={{ float: 'right', position: {top: 300, right: 20} }} />
                         </Map>
                     </div>
                 </YMaps>

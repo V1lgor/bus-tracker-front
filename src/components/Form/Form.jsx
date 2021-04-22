@@ -86,14 +86,21 @@ const formConfigTest = {
     }
 }
 
+const onSubmit1 = () => {
+    let formResult = {
+        email: document.getElementById("inputEmail").value,
+        password: document.getElementById("inputPassword").value
+    }
+}
+
 const Form = (props) => {
-    const login = React.createRef();
-    const password = React.createRef();
+    //const password = React.createRef();
+
     let onSubmit = props.onSubmit;
     let formConfig = props.formConfig;
     let elementsToRender = [];
-    console.log(props);
     let i = 0;
+
     for (let elem in formConfig) {
         let block = null;
         switch(formConfig[elem].elementType) {
@@ -105,7 +112,6 @@ const Form = (props) => {
                         </label>
                         <input key={i}
                                id={formConfig[elem].elementId}
-                               //ref={inputRef} Как я буду считывать данные? А? А? А? А?
                                type={formConfig[elem].elementConfig.type}
                                placeholder={formConfig[elem].elementConfig.placeholder}
                                minLength={formConfig[elem].validation.minLength}
