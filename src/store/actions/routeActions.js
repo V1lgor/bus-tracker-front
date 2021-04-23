@@ -5,6 +5,8 @@ import {normalize} from "normalizr";
 import Route from "../entities/Route";
 import {setCityList} from "./cityActions";
 import {batch} from "react-redux";
+import {setStopList} from "./stopActions";
+import {setVisibleRoutePath} from "./mapActions";
 
 export const setSelectedRouteByIdSync = (route) => {
     return {
@@ -68,14 +70,24 @@ export const clearRouteList = () => {
 export const fetchRouteList = () => {
     return (dispatch) => {
         axios.get('http://localhost:8080/routes')
-            .then(response => {console.log(response); return response.data})
+            .then(response => {return response.data})
             .then(routeList => {
                 const normalizedRouteList = normalize(routeList, [Route]);
-                console.log(normalizedRouteList)
+                console.log(normalizedRouteList);
                 batch(() => {
                     dispatch(setRouteList(routeList));
+                    dispatch(setStopList(normalizedRouteList.entities.stop))
                     dispatch(setCityList(normalizedRouteList.entities.city))
                 })
             })
+    };
+};
+
+export const fetchRoutePathById = (routeId, isDirectionForward) => {
+    console.log("FETCHING ROUTE PATH");
+    return (dispatch) => {
+        axios.get(`http://localhost:8080/routes/${routeId}/path?forward=${isDirectionForward}`)
+            .then(response => response.data)
+            .then(routePath => dispatch(setVisibleRoutePath(routePath, isDirectionForward)))
     };
 };

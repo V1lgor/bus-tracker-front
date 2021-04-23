@@ -96,6 +96,7 @@ const routeReducer = (state = initialState, action) => {
         case actionTypes.SET_SELECTED_ROUTE_BY_ID: {
             return produce(state, (draftState) => {
                 draftState.selectedRoute = action.route;
+                draftState.selectedRouteId = action.route.id
             })
         }
         case actionTypes.CLEAR_SELECTED_ROUTE: {

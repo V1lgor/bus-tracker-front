@@ -1,9 +1,19 @@
 .RouteInfoContainer {
-
+    padding: 16px;
 }
 
-.RouteInfoContainer h2 {
-    margin-bottom: 16px;
+.RouteNumber {
+    padding-bottom: 8px;
+    border-bottom: 1px solid #ccc;
+}
+
+.RouteDescription {
+    padding: 8px 0;
+    border-bottom: 1px solid #ccc;
+}
+
+.RouteDescription h3 {
+    margin-bottom: 8px;
 }
 
 .RouteInfoContainer p {

@@ -2,6 +2,7 @@ import * as actionTypes from './../actions/actionTypes';
 import produce from "immer";
 import {normalize} from "normalizr";
 import Stop from "../entities/Stop";
+import RouteStop from "../entities/RouteStop";
 
 const initialState = {
     stopListVisible: false,
@@ -9,7 +10,8 @@ const initialState = {
         byId: {},
         idList: []
     },
-    filteredStopList: null
+    filteredStopList: null,
+    selectedRouteStopList: null
 }
 
 const normalizeStopList = (stopList) => {
@@ -50,6 +52,30 @@ const stopReducer = (state = initialState, action) => {
         case actionTypes.CLEAR_STOP_LIST_FILTER: {
             return produce(state, (draftState) => {
                 draftState.filteredStopList = null;
+            })
+        }
+        case actionTypes.SET_ROUTE_STOP_LIST: {
+            return produce(state, (draftState) => {
+                const normalizedRouteStopList = normalize(action.routeStopList, [RouteStop]);
+
+                const stopIdList = [];
+
+                for (let id in normalizedRouteStopList.entities.stop) {
+                    stopIdList.push(parseInt(id));
+                }
+
+                draftState.selectedRouteStopList = {
+                    stopList: {
+                        byId: normalizedRouteStopList.entities.stop,
+                        idList: stopIdList
+                    },
+                    routeStopInfoList: {
+                        byId: normalizedRouteStopList.entities.routeStop,
+                        idList: normalizedRouteStopList.result
+                    }
+                }
+
+                console.log(draftState.selectedRouteStopList);
             })
         }
         default:

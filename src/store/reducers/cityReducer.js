@@ -22,7 +22,6 @@ const normalizeCityList = (cityList) => {
 const cityReducer = (state = initialState, action) => {
     switch (action.type) {
         case actionTypes.SET_CITY_LIST: {
-            console.log(action);
             return produce(state, (draftState) => {
                 draftState.cityList = normalizeCityList(action.cityList)
             })

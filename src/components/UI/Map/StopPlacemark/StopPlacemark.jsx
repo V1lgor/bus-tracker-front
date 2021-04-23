@@ -8,7 +8,7 @@ const StopPlacemark = (props) => {
             key={props.id}
             geometry={[props.xPos, props.yPos]}
             properties={{
-                hintContent: props.name,
+                hintContent: `${props.name}. ID: ${props.id}`,
                 balloonContentHeader: props.name,
             }}
             modules={[
@@ -17,7 +17,7 @@ const StopPlacemark = (props) => {
                 "layout.ImageWithContent"
             ]}
             options={{
-                preset: 'islands#redMassTransitCircleIcon',
+                preset: 'islands#redCircleIcon',
                 iconContentSize: [0, 2],
                 iconContentLayout: props.name,
                 iconContentOffset: [0, 0],

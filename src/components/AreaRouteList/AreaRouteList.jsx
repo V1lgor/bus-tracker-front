@@ -36,8 +36,7 @@ const AreaRouteList = (props) => {
 
 
             const expandableList = <ExpandableList title={routeTypeTitle}><RouteList
-                onShowInfo={props.onShowInfo}
-                onShowSchedule={props.onShowSchedule}
+                onRouteSelect={props.onRouteSelect}
                 routeList={props.routeList[routeType]}/></ExpandableList>;
 
             routeTypes.push(expandableList);
