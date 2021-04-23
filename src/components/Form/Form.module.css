@@ -3,6 +3,7 @@
 }
 .formElement label {
     display: block;
+    color: black;
 }
 
 .formElement input, .formElement select {

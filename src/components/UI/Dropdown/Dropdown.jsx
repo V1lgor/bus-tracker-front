@@ -2,7 +2,6 @@ import React from 'react';
 import styles from './Dropdown.module.css';
 import PropTypes from 'prop-types';
 
-
 const Dropdown = (props) => {
     return (
         <select className={styles.Dropdown} onChange={props.onChange}>
@@ -13,10 +12,9 @@ const Dropdown = (props) => {
     );
 };
 
-
-
 Dropdown.propTypes = {
     optionList: PropTypes.array.isRequired,
     onChange: PropTypes.func
 }
+
 export default Dropdown;
