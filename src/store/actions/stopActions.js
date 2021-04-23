@@ -5,7 +5,7 @@ import {normalize} from "normalizr";
 import Stop from "../entities/Stop";
 import {setCityList} from "./cityActions";
 
-const setStopList = (stopList) => {
+export const setStopList = (stopList) => {
     return {
         type: actionTypes.SET_STOP_LIST,
         stopList
@@ -40,5 +40,22 @@ export const fetchStopList = () => {
                 dispatch(setStopList(stopList));
                 dispatch(setCityList(normalizedStopList.entities.city));
             })
+    };
+};
+
+const setRouteStopList = (routeStopList) => {
+    return {
+        type: actionTypes.SET_ROUTE_STOP_LIST,
+        routeStopList
+    };
+};
+
+export const fetchRouteStopList = (routeId) => {
+    return (dispatch) => {
+        axios.get(`http://localhost:8080/routes/${routeId}/stops`)
+            .then(response => response.data)
+            .then(routeStopList => {
+                dispatch(setRouteStopList(routeStopList));
+            });
     };
 };

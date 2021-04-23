@@ -11,14 +11,16 @@ export  {
     clearRouteListFilter,
     setSelectedRouteById,
     clearSelectedRoute,
-    clearRouteList
+    clearRouteList,
+    fetchRoutePathById
 } from './routeActions';
 
 export  {
     fetchStopList,
     toggleStopListVisibility,
     filterStopListByNameTemplate,
-    clearStopListFilter
+    clearStopListFilter,
+    fetchRouteStopList
 } from './stopActions';
 
 export {
@@ -28,3 +30,10 @@ export {
 export  {
     checkLogPass
 } from './authorization';
+
+export  {
+    setVisibleRoutePath,
+    setStopDirectionVisibility,
+    toggleStopVisibility,
+    toggleRouteVisibility
+} from './mapActions';

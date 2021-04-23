@@ -10,6 +10,7 @@ const setSelectedScheduleSync = (schedule) => {
 };
 
 export const setSelectedScheduleRouteId = (routeId) => {
+    console.log(routeId);
     return {
         type: actionTypes.SET_SELECTED_SCHEDULE_ROUTE_ID,
         routeId

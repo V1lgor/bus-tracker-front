@@ -6,7 +6,7 @@ import {GeoObject} from "react-yandex-maps";
 const MapLine = (props) => {
 
     const color = props.color || "#3498db";
-    const strokeWidth = props.color || 4;
+    const strokeWidth = props.width || 4;
 
     return (
         <GeoObject

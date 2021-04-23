@@ -15,13 +15,15 @@ import {Route, Switch} from "react-router";
 import RouteDashboard from "./containers/Dashboard/RouteDashboard/RouteDashboard";
 import RoadNodeDashboard from "./containers/Dashboard/RoadNodeDashboard/RoadNodeDashboard";
 import roadReducer from "./store/reducers/roadReducer";
+import mapReducer from "./store/reducers/mapReducer";
 
 const rootReducer = combineReducers({
     scheduleReducer: scheduleReducer,
     routeReducer: routeReducer,
     stopReducer: stopReducer,
     cityReducer: cityReducer,
-    roadReducer: roadReducer
+    roadReducer: roadReducer,
+    mapReducer: mapReducer
 });
 
 const store = createStore(rootReducer, applyMiddleware(thunk));

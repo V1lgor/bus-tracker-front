@@ -1,5 +1,4 @@
 import React from 'react';
-import Maps from "../../components/Map/Map";
 import RouteListContainer from "../RouteListContainer/RouteListContainer";
 import {connect} from "react-redux";
 import Sidebar from "../../components/UI/Sidebar/Sidebar";
@@ -11,13 +10,14 @@ import * as actions from '../../store/actions/';
 
 import styles from './Main.module.css';
 import RouteInfoContainer from "../RouteInfoContainer/RouteInfoContainer";
+import MapContainer from "./MapContainer/MapContainer";
 
 class Main extends React.Component {
 
+
     state = {
         sidebarVisible: false,
-        scheduleModalVisible: false,
-        routeInfoModalVisible: false
+        scheduleModalVisible: false
     }
 
     closeScheduleModal = () => {
@@ -35,11 +35,14 @@ class Main extends React.Component {
     }
 
     render() {
-
+        console.log(this.props);
         let sidebarContent = null;
 
         if (this.props.routeListVisible) {
-            sidebarContent = <Sidebar><RouteListContainer/></Sidebar>
+            if (this.props.isRouteSelected) {
+                sidebarContent = <Sidebar><RouteInfoContainer routeId={this.props.selectedRouteId}/></Sidebar>
+            }
+            else sidebarContent = <Sidebar><RouteListContainer/></Sidebar>
         } else if (this.props.stopListVisible) {
             sidebarContent = <Sidebar><StopListContainer/></Sidebar>
         }
@@ -57,18 +60,10 @@ class Main extends React.Component {
                 </Modal>
         }
 
-        let routeInfoModal = null;
-
         if (this.props.isRouteSelected && !this.state.routeInfoModalVisible) {
             this.setState({routeInfoModalVisible: true});
         }
 
-        if (this.state.routeInfoModalVisible) {
-            routeInfoModal =
-                <Modal closeModal={this.closeRouteInfoModal}>
-                    <RouteInfoContainer/>
-                </Modal>
-        }
 
         let cssClassList = [styles.Main];
 
@@ -76,9 +71,8 @@ class Main extends React.Component {
             <main className={cssClassList.join(' ')}>
                 {sidebarContent}
                 {scheduleModal}
-                {routeInfoModal}
                 <div className={styles.Map}>
-                    <Maps/>
+                    <MapContainer/>
                 </div>
             </main>
         );
@@ -89,8 +83,9 @@ const mapStateToProps = (state) => {
     return {
         routeListVisible: state.routeReducer.routeListVisible,
         stopListVisible: state.stopReducer.stopListVisible,
-        selectedScheduleRouteId: state.scheduleReducer.selectedScheduleRouteId,
-        isRouteSelected: !!state.routeReducer.selectedRoute
+        selectedRouteId: state.routeReducer.selectedRouteId,
+        isRouteSelected: !!state.routeReducer.selectedRoute,
+        selectedScheduleRouteId: state.scheduleReducer.selectedScheduleRouteId
     };
 };
 

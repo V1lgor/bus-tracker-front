@@ -4,7 +4,7 @@ import DropdownArrow from "./DropdownArrow/DropdownArrow";
 import PropTypes from "prop-types";
 
 const ExpandableList = (props) => {
-    const [isContentVisible, setContentVisibility] = useState(false);
+    const [isContentVisible, setContentVisibility] = useState(props.initiallyOpen || false);
 
     let content = null;
 
@@ -16,9 +16,16 @@ const ExpandableList = (props) => {
         setContentVisibility(!isContentVisible);
     }
 
+    const onClick = () => {
+        if (isContentVisible) {
+            if (props.onClose) props.onClose();
+        } else if (props.onOpen) props.onOpen();
+        toggleContentVisibility();
+    }
+
     return (
         <div className={styles.ExpandableListWrapper}>
-            <div className={styles.ExpandableList} onClick={toggleContentVisibility}>
+            <div className={styles.ExpandableList} onClick={onClick}>
                 <div className={styles.ArrowWrapper}>
                     <DropdownArrow arrowUp={isContentVisible}/>
                 </div>
@@ -32,7 +39,11 @@ const ExpandableList = (props) => {
 };
 
 ExpandableList.propTypes = {
-    title: PropTypes.string.isRequired
+    title: PropTypes.string.isRequired,
+    initiallyOpen: PropTypes.bool,
+    onOpen: PropTypes.func,
+    onClose: PropTypes.func,
+    open: PropTypes.bool
 };
 
 export default ExpandableList;

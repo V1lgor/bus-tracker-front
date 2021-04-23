@@ -31,7 +31,6 @@ class RouteListContainer extends React.Component {
         if (this.props.routeList)
             routeList = this.props.filteredRouteList ? this.props.filteredRouteList : this.props.routeList;
 
-        console.log(routeList);
         return (
             <div className={styles.RouteListContainer}>
                 <div className={styles.SearchField}>
@@ -58,8 +57,7 @@ class RouteListContainer extends React.Component {
 
                     return <AreaRouteList routeList={cityRouteList}
                                           cityName={this.props.cityList.byId[cityId].name}
-                                          onShowSchedule={this.props.setSelectedSchedule}
-                                          onShowInfo={this.props.setSelectedRoute}/>
+                                          onRouteSelect={this.props.setSelectedRoute}/>
                 })}
             </div>
         );
@@ -80,7 +78,6 @@ const mapDispatchToProps = (dispatch) => {
         fetchRouteList: () => dispatch(actions.fetchRouteList()),
         filterRouteListByNumberTemplate: (numberTemplate) => dispatch(actions.filterRouteListByNumberTemplate(numberTemplate)),
         clearRouteListFilter: () => dispatch(actions.clearRouteListFilter()),
-        setSelectedSchedule: (routeId) => dispatch(actions.setSelectedScheduleRouteId(routeId)),
         setSelectedRoute: (routeId) => dispatch(actions.setSelectedRouteById(routeId))
     };
 };
